@@ -1,0 +1,152 @@
+{% extends 'base.html' %}
+{% include 'header.html' %}
+
+{% block title %} Home {% endblock %}
+
+
+{% block body %}
+
+<div class="container">
+    <div class="row">
+         <div class="col md-12">
+             <div class="jumbotron p-3">
+             <h2>Manage <b>Features </b><button type="button"  class="btn btn-success float-right"
+                data-toggle="modal" data-target="#mymodal">Add New Features</button> </h2>
+                 {% with messages = get_flashed_messages() %}
+
+                {% if messages %}
+
+                {% for message in messages %}
+
+                <div class="alert alert-success alert-dismissable" role="alert">
+
+                    <button type="button" class="close" data-dismiss="alert" aria-label="close">
+
+                        <span aria-hidden="true">x</span>
+
+                    </button>
+
+
+                {{message}}
+
+
+                </div>
+
+
+                {% endfor %}
+
+                {% endif %}
+                {% endwith %}
+                 <table class="table table-hover table-dark">
+
+                    <tr>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Action</th>
+                    </tr>
+                     {% for row in feat %}
+                     <tr>
+                         <th>{{row.feature_id}}</th>
+                         <th>{{row.feature_name}}</th>
+                         <td>
+                             <a href="/updatefeatures/{{ row.features_id }}" class="btn btn-warning btn-xs" data-toggle="modal" data-target="#modaledit{{row.feature_id}}">Edit</a>
+                             <a href="/deletefeatures/{{ row.features_id }}" class="btn btn-danger btn-xs" onclick="return confirm('Are you sure to delete?')">Delete</a>
+                         </td>
+
+                     </tr>
+
+
+
+
+
+
+
+
+
+
+                    <div id="modaledit{{row.feature_id}}" class="modal fade" role="dialog">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+
+                                <div class="modal-header">
+
+
+                                    <h4 class="modal-title">Update Features</h4>
+
+
+                                 </div>
+                                <div class="modal-body">
+                                    <form action="{{url_for('updatefeatures')}}" method="POST">
+                                        <div class="form-group">
+                                            <input type="hidden"  name="feature_id" value="{{row.feature_id}}">
+                                            <label>Name:</label>
+                                            <input type="text" class="form-control" name="feature_name" value="{{row.feature_name}} ">
+                                        </div>
+
+                                <div class="form-group">
+
+                                    <button class="btn btn-primary" type="submit">Update</button>
+
+                                </div>
+                                    </form>
+                                </div>
+                                 <div class="modal-footer">
+
+
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+
+
+                                 </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+
+            {% endfor %}
+                 </table>
+             </div>
+             <div id="mymodal" class="modal fade" role="dialog">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+
+                                <div class="modal-header">
+
+
+                                    <h4 class="modal-title">Add New Features</h4>
+
+
+                                 </div>
+
+                                <div class="modal-body">
+                                    <form action="{{url_for('insertfeatures')}}" method="POST">
+
+                                         <div class="form-group">
+                                            <label>Name:</label>
+                                            <input type="text" class="form-control" name="feature_name" required="">
+                                        </div>
+
+                                <div class="form-group">
+
+                                    <button class="btn btn-primary" type="submit">Add</button>
+
+                                </div>
+                                    </form>
+                                </div>
+                                 <div class="modal-footer">
+
+
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+
+
+                                 </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+         </div>
+
+</div>
+</div>
+{% endblock %}

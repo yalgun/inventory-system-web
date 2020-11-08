@@ -1,7 +1,6 @@
 from flask_sqlalchemy import SQLAlchemy
-
-def createDatabase(db):
-    class ProductModel(db.Model):
+from app import db
+class ProductModel(db.Model):
         __tablename__ = 'product'
 
         m_syscode = db.Column(db.Integer, primary_key=True)
@@ -22,7 +21,7 @@ def createDatabase(db):
             self.m_category = m_category
             self.is_active = is_active
 
-    class FeaturesModel(db.Model):
+class FeaturesModel(db.Model):
         __tablename__ = 'features'
 
         feature_id = db.Column(db.Integer, primary_key=True)
@@ -31,7 +30,23 @@ def createDatabase(db):
         def __init__(self, feature_name):
             self.feature_name = feature_name
 
-    class ProductFeaturesModel(db.Model):
+
+class UserModel(db.Model):
+    __tablename__ = 'user'
+
+    person_id = db.Column(db.Integer, primary_key=True)
+    person_name = db.Column(db.String(200))
+    person_password=db.Column(db.String(200))
+    person_role=db.Column(db.String(200))
+
+
+    def __init__(self, person_id,person_name,person_password,person_role):
+        self.person_id=person_id
+        self.person_name=person_name
+        self.person_password=person_password
+        self.person_role=person_role
+
+class ProductFeaturesModel(db.Model):
         __tablename__ = 'product-features-model'
 
         m_syscode = db.Column(db.Integer, primary_key=True)
@@ -43,7 +58,7 @@ def createDatabase(db):
             self.feature_id = feature_id
             self.minval = minval
 
-    class ManufacturersModel(db.Model):
+class ManufacturersModel(db.Model):
         __tablename_ = 'manufacturer'
 
         manufacturer_id = db.Column(db.Integer, primary_key=True)
@@ -58,7 +73,7 @@ def createDatabase(db):
             self.city = city
             self.country = country
 
-    class OrganizationsModel(db.Model):
+class OrganizationsModel(db.Model):
         __tablename__ = 'organizations'
 
         org_id = db.Column(db.Integer, primary_key=True)
@@ -79,7 +94,7 @@ def createDatabase(db):
             self.org_District = org_District
             self.org_Type = org_Type
 
-    class BrandsOrgsModel(db.Model):
+class BrandsOrgsModel(db.Model):
         __tablename_ = 'brands'
 
         lot_id = db.Column(db.Integer, primary_key=True)
@@ -96,7 +111,7 @@ def createDatabase(db):
             self.in_amount = in_amount
             self.total_amount = total_amount
 
-    class FlowModel(db.Model):
+class FlowModel(db.Model):
         __tablename__ = 'flow'
 
         source_lot_id = db.Column(db.Integer, primary_key=True)
@@ -112,7 +127,7 @@ def createDatabase(db):
             self.target_org_id = target_org_id
             self.brand_brandcode = brand_brandcode
 
-    class AlternativeBrandsModel(db.Model):
+class AlternativeBrandsModel(db.Model):
         __tablename__ = 'alternative-brands'
 
         brand_barcode = db.Column(db.Integer, primary_key=True)
@@ -122,7 +137,7 @@ def createDatabase(db):
             self.brand_barcode = brand_barcode
             self.alternative_brand_code = alternative_brand_code
 
-    class CountryModel(db.Model):
+class CountryModel(db.Model):
         __tablename__ = 'country'
 
         country_code = db.Column(db.String(3), primary_key=True)
@@ -132,7 +147,7 @@ def createDatabase(db):
             self.country_code = country_code
             self.country_name = country_name
 
-    class CountyCityModel(db.Model):
+class CountyCityModel(db.Model):
         __tablename__ = 'country-city'
 
         city_id = db.Column(db.Integer, primary_key=True)
@@ -142,5 +157,5 @@ def createDatabase(db):
             self.city_id = city_id
             self.city_name = city_name
 
-    db.create_all()
-    db.session.commit()
+db.create_all()
+db.session.commit()
