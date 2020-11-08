@@ -61,11 +61,11 @@ def updatefeatures():
 
     return redirect(url_for('features'))
 
-@app.route('/deletefeatures/<int:id>', methods = ['GET', 'POST'])
-def deletefeatures(id):
+@app.route('/deletefeatures', methods = ['GET', 'POST'])
+def deletefeatures():
     num = request.form['feature_id']
 
-    my_data = db.session.query(FeaturesModel).get(id)
+    my_data = db.session.query(FeaturesModel).get(num)
     db.session.delete(my_data)
     db.session.commit()
 

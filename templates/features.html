@@ -50,13 +50,47 @@
                          <th>{{row.feature_name}}</th>
                          <td>
                              <a href="/updatefeatures/{{ row.features_id }}" class="btn btn-warning btn-xs" data-toggle="modal" data-target="#modaledit{{row.feature_id}}">Edit</a>
-                             <a href="/deletefeatures/{{ row.features_id }}" class="btn btn-danger btn-xs" onclick="return confirm('Are you sure to delete?')">Delete</a>
+                            <a href="/deletefeatures/{{ row.features_id }}" class="btn btn-danger btn-xs" data-toggle="modal" data-target="#modaldelete{{row.feature_id}}" >Delete</a>
                          </td>
 
                      </tr>
 
+                     <div id="modaldelete{{row.feature_id}}" class="modal fade" role="dialog">
+                            <div class="modal-dialog">
+                            <div class="modal-content">
+
+                                <div class="modal-header">
 
 
+                                    <h4 class="modal-title">Are You Sure To Delete ? </h4>
+
+
+                                 </div>
+
+                                <div class="modal-body">
+                                    <form action="{{url_for('deletefeatures')}}" method="POST">
+                                        <div class="form-group">
+                                            <input type="hidden"  name="feature_id" value="{{row.feature_id}}">
+                                              </div>
+
+                                <div class="form-group">
+
+                                    <button class="btn btn-danger btn-xs" type="submit" >Delete</button>
+
+                                </div>
+                                    </form>
+                                </div>
+                                 <div class="modal-footer">
+
+
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+
+
+                                 </div>
+
+                            </div>
+                            </div>
+                            </div>
 
 
 
