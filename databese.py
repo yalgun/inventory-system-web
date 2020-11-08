@@ -66,7 +66,8 @@ class ManufacturersModel(db.Model):
         city = db.Column(db.Integer)
         country = db.Column(db.String(2))
 
-        def __init__(self, manufacturer_name, manufacturer_address, city, country):
+        def __init__(self, manufacturer_id, manufacturer_name, manufacturer_address, city, country):
+            self.manufacturer_id = manufacturer_id
             self.manufacturer_name = manufacturer_name
             self.manufacturer_address = manufacturer_address
             self.city = city

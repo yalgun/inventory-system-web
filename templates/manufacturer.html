@@ -1,0 +1,191 @@
+{% extends 'base.html' %}
+{% include 'header.html' %}
+
+{% block title %} Home {% endblock %}
+
+
+{% block body %}
+
+<div class="container">
+    <div class="row">
+         <div class="col md-12">
+             <div class="jumbotron p-3">
+             <h2>Manage <b>Manufacturers </b><button type="button"  class="btn btn-success float-right"
+                data-toggle="modal" data-target="#mymodal">Add New Manufacturer</button> </h2>
+
+                 <table class="table table-hover table-dark">
+                    <tr>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Address </th>
+                        <th>City</th>
+                        <th>Country</th>
+                    </tr>
+                     {% for row in feat %}
+                     <tr>
+                         <th>{{row.manufacturer_id}}</th>
+                         <th>{{row.manufacturer_name}}</th>
+                         <th>{{row.manufacturer_address}}</th>
+                         <th>{{row.city}}</th>
+                         <th>{{row.country}}</th>
+
+                         <td>
+                             <a href="/updatemanufacturers/{{ row.m_syscode }}" class="btn btn-warning btn-xs" data-toggle="modal" data-target="#modaledit{{row.manufacturer_id}}">Edit</a>
+                            <a href="/deletemanufacturers/{{ row.m_syscode }}" class="btn btn-danger btn-xs" data-toggle="modal" data-target="#modaldelete{{row.manufacturer_id}}" >Delete</a>
+                         </td>
+
+                     </tr>
+
+                         <div id="modaldelete{{row.manufacturer_id}}" class="modal fade" role="dialog">
+                            <div class="modal-dialog">
+                            <div class="modal-content">
+
+                                <div class="modal-header">
+
+
+                                    <h4 class="modal-title">Are You Sure To Delete ? </h4>
+
+
+                                 </div>
+
+                                <div class="modal-body">
+                                    <form action="{{url_for('deletemanufacturers')}}" method="POST">
+                                        <div class="form-group">
+                                            <input type="hidden"  name="manufacturer_id" value="{{row.manufacturer_id}}">
+                                              </div>
+
+                                <div class="form-group">
+
+                                    <button class="btn btn-danger btn-xs" type="submit" >Delete</button>
+
+                                </div>
+                                    </form>
+                                </div>
+                                 <div class="modal-footer">
+
+
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+
+
+                                 </div>
+
+                            </div>
+                            </div>
+                            </div>
+
+                    <div id="modaledit{{row.manufacturer_id}}" class="modal fade" role="dialog">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+
+                                <div class="modal-header">
+
+
+                                    <h4 class="modal-title">Update Product</h4>
+
+
+                                 </div>
+                                <div class="modal-body">
+                                    <form action="{{url_for('updatemanufacturers')}}" method="POST">
+                                        <div class="form-group">
+                                            <label>ID</label>
+                                            <input type="hidden"  name="manufacturer_id" value="{{row.manufacturer_id}}">
+                                        </div>
+                                        <div class="form-group">
+                                             <label>Name</label>
+                                            <input type="text" class="form-control" name="manufacturer_name" value="{{row.manufacturer_name}} ">
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label>Address:</label>
+                                            <input type="text" class="form-control" name="manufacturer_address" value="{{row.manufacturer_address}} ">
+                                        </div>
+                                         <div class="form-group">
+                                            <label>City:</label>
+                                            <input type="text" class="form-control" name="city" value="{{row.city}} ">
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Country:</label>
+                                            <input type="text" class="form-control" name="country" value="{{row.country}} ">
+                                        </div>
+                                <div class="form-group">
+
+                                    <button class="btn btn-primary" type="submit">Update</button>
+
+                                </div>
+                                    </form>
+                                </div>
+                                 <div class="modal-footer">
+
+
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+
+
+                                 </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+
+                {% endfor %}
+                 </table>
+             </div>
+             <div id="mymodal" class="modal fade" role="dialog">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+
+                                <div class="modal-header">
+
+
+                                    <h4 class="modal-title">Add New Manufacturer</h4>
+
+
+                                 </div>
+
+                                <div class="modal-body">
+                                    <form action="{{url_for('insertmanufacturers')}}" method="POST">
+                                        <div class="form-group">
+                                            <label>Manufacturer ID:</label>
+                                            <input type="text" class="form-control" name="manufacturer_id" required="">
+                                        </div>
+
+                                         <div class="form-group">
+                                            <label>Name:</label>
+                                            <input type="text" class="form-control" name="manufacturer_name" required="">
+                                        </div>
+                                          <div class="form-group">
+                                            <label>Address:</label>
+                                            <input type="text" class="form-control" name="manufacturer_address" required="">
+                                        </div>
+                                        <div class="form-group">
+                                            <label>City:</label>
+                                            <input type="text" class="form-control" name="city" required="">
+                                        </div>
+                                          <div class="form-group">
+                                            <label>Country:</label>
+                                            <input type="text" class="form-control" name="country" required="">
+                                        </div>
+                                <div class="form-group">
+
+                                    <button class="btn btn-primary" type="submit">Create</button>
+
+                                </div>
+                                    </form>
+                                </div>
+                                 <div class="modal-footer">
+
+
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+
+
+                                 </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+         </div>
+
+</div>
+</div>
+{% endblock %}
