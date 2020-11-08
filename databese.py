@@ -36,15 +36,12 @@ class UserModel(db.Model):
 
     person_id = db.Column(db.Integer, primary_key=True)
     person_name = db.Column(db.String(200))
-    person_password=db.Column(db.String(200))
-    person_role=db.Column(db.String(200))
+    person_password = db.Column(db.String(200))
 
 
-    def __init__(self, person_id,person_name,person_password,person_role):
-        self.person_id=person_id
-        self.person_name=person_name
-        self.person_password=person_password
-        self.person_role=person_role
+    def __init__(self, person_name, person_password):
+        self.person_name = person_name
+        self.person_password = person_password
 
 class ProductFeaturesModel(db.Model):
         __tablename__ = 'product-features-model'

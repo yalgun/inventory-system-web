@@ -3,19 +3,34 @@ from plistlib import Data
 from flask import render_template, request, url_for, flash
 from werkzeug.utils import redirect
 
-from databese import ProductModel, FeaturesModel
+from databese import ProductModel, FeaturesModel,UserModel
 from app import app,db
 
+@app.route('/register')
+def register():
+    return render_template('register.html')
+
+
+@app.route('/checkuser',methods = ['POST'])
+def checkuser():
+    if request.method == 'POST':
+        person_name = request.form['person_name']
+        person_password = request.form['person_password']
+        login = UserModel.query.filter_by(person_name=person_name, person_password=person_password).first()
+        if login is not None:
+            return redirect(url_for('features'))
+
+        return redirect(url_for("hello_world"))
 
 @app.route('/insertuser',methods = ['POST'])
 def insertuser():
     if request.method == 'POST':
-        feature_name = request.form['feature_name']
-        myFeatures=FeaturesModel(feature_name)
-        db.session.add(myFeatures)
+        person_name = request.form['person_name']
+        person_password = request.form['person_password']
+        myUser=UserModel(person_name,person_password)
+        db.session.add(myUser)
         db.session.commit()
-        #Flash("New Feature is added")
-    return redirect(url_for('features'))
+    return redirect(url_for('hello_world'))
 
 
 @app.route('/features')

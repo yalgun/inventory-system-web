@@ -46,17 +46,15 @@ button {
 </head>
 <body>
     <center> <h1> Login Page </h1> </center>
-    <form>
+    <form action="{{url_for('checkuser')}}" method="POST">
         <div class="container">
             <label>Username : </label>
-            <input type="text" placeholder="Enter Username" name="username" required>
+            <input type="text" placeholder="Enter Username" name="person_name" required>
             <label>Password : </label>
-            <input type="password" placeholder="Enter Password" name="password" required>
+            <input type="password" placeholder="Enter Password" name="person_password" required>
             <button type="submit">Login</button>
-            <a href="" class="btn btn-warning btn-xs" data-toggle="modal" data-target="#modaledit">New Account</a>
+            <li><a href="{{ url_for('register') }}">New Account</a></li>
         </div>
     </form>
 </body>
 </html>
-
-
