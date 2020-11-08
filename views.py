@@ -3,9 +3,9 @@ from plistlib import Data
 from flask import render_template, request, url_for, flash
 from werkzeug.utils import redirect
 
-from databese import ProductModel, FeaturesModel,UserModel
+from databese import ProductModel, FeaturesModel,UserModel,OrganizationsModel
 from app import app,db
-
+import binascii
 @app.route('/register')
 def register():
     return render_template('register.html')
@@ -27,7 +27,8 @@ def insertuser():
     if request.method == 'POST':
         person_name = request.form['person_name']
         person_password = request.form['person_password']
-        myUser=UserModel(person_name,person_password)
+
+        myUser =UserModel(person_name,person_password)
         db.session.add(myUser)
         db.session.commit()
     return redirect(url_for('hello_world'))
@@ -74,7 +75,8 @@ def deletefeatures():
 
 @app.route('/product')
 def product():
-    return render_template('product.html')
+    all_data = db.session.query(ProductModel).all()
+    return render_template('product.html', feat=all_data)
 
 
 @app.route('/insertproduct', methods = ['POST'])
@@ -87,15 +89,78 @@ def insertproduct():
         m_abstract = request.form['m_abstract']
         m_category = request.form['m_category']
         is_active = request.form['is_active']
-        abs = ' '.join(format(ord(x), 'b') for x in m_abstract)
-        actv = ' '.join(format(ord(x), 'b') for x in is_active)
-
-
-        my_data = ProductModel(m_code,m_name,m_short_name,m_parent_code,bin(abs),m_category,bin(actv))
+        m_abstract.strip()
+        is_active.strip()
+        guid_tag = binascii.unhexlify(m_abstract)
+        isac = binascii.unhexlify(is_active)
+        my_data = ProductModel(m_code,m_name,m_short_name,m_parent_code,guid_tag,m_category,isac)
         db.session.add(my_data)
         db.session.commit()
 
         return redirect(url_for('product'))
+
+@app.route('/updateproduct', methods=['GET', 'POST'])
+def updateproduct():
+    if request.method == 'POST':
+        m_code = request.form['m_code']
+        m_name = request.form['m_name']
+        m_short_name = request.form['m_short_name']
+        m_parent_code = request.form['m_parent_code']
+        m_abstract = request.form['m_abstract']
+        m_category = request.form['m_category']
+        is_active = request.form['is_active']
+
+        guid_tag = binascii.unhexlify(m_abstract)
+        isac = binascii.unhexlify(is_active)
+
+
+        my_data = db.session.query(ProductModel).get(m_code)
+        my_data.m_name = request.form['m_name']
+        my_data.m_short_name = request.form['m_short_name']
+        my_data.m_parent_code = request.form['m_parent_code']
+        my_data.m_abstract = guid_tag
+        my_data.m_category = request.form['m_category']
+        my_data.is_active = isac
+
+        db.session.commit()
+        return redirect(url_for('product'))
+
+
+@app.route('/deleteproduct', methods = ['GET', 'POST'])
+def deleteproduct():
+    num = request.form['m_syscode']
+
+    my_data = db.session.query(ProductModel).get(num)
+    db.session.delete(my_data)
+    db.session.commit()
+
+    return redirect(url_for('product'))
+
+
+@app.route('/insorg')
+def insorg():
+    return render_template('RegisterOrganization.html')
+
+@app.route('/insertorganization', methods = ['POST'])
+def insertorganization():
+    if request.method == 'POST':
+        org_name = request.form['org_name']
+        org_Address = request.form['org_Adress']
+        org_District = request.form['org_District']
+        parent_org=0
+        org_abstract=''
+        isac = binascii.unhexlify(org_abstract)
+        org_City=0
+        org_Type=0
+        myOrg=OrganizationsModel(org_name, parent_org, isac, org_Address, org_City, org_District, org_Type)
+        db.session.add(myOrg)
+        db.session.commit()
+        person_name = request.form['person_name']
+        person_password = request.form['person_password']
+        myUser = UserModel(person_name, person_password)
+        db.session.add(myUser)
+        db.session.commit()
+    return redirect(url_for('hello_world'))
 
 if __name__ == '__main__':
     app.run()

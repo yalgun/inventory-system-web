@@ -25,25 +25,62 @@
                         <th>Is Active</th>
                         <th>Action</th>
                     </tr>
+                     {% for row in feat %}
                      <tr>
-                         <th>1</th>
-                         <th>Deniz</th>
-                         <th>etu.edu</th>
-                         <th>etu.edu</th>
-                         <th>etu.edu</th>
-                         <th>etu.edu</th>
-                         <th>etu.edu</th>
-                         <th>etu.edu</th>
+                         <th>{{row.m_syscode}}</th>
+                         <th>{{row.m_code}}</th>
+                         <th>{{row.m_name}}</th>
+                         <th>{{row.m_short_name}}</th>
+                         <th>{{row.m_parent_code}}</th>
+                         <th>{{row.m_abstract}}</th>
+                         <th>{{row.m_category}}</th>
+                         <th>{{row.is_active}}</th>
 
                          <td>
-                             <a href="" class="btn btn-warning btn-xs" data-toggle="modal" data-target="#modaledit">Edit</a>
-                             <a href="" class="btn btn-danger btn-xs" onclick="return confirm('Are you sure to delete?')">Delete</a>
+                             <a href="/updateproduct/{{ row.m_syscode }}" class="btn btn-warning btn-xs" data-toggle="modal" data-target="#modaledit{{row.m_syscode}}">Edit</a>
+                            <a href="/deleteproduct/{{ row.m_syscode }}" class="btn btn-danger btn-xs" data-toggle="modal" data-target="#modaldelete{{row.m_syscode}}" >Delete</a>
                          </td>
 
                      </tr>
 
+                         <div id="modaldelete{{row.m_syscode}}" class="modal fade" role="dialog">
+                            <div class="modal-dialog">
+                            <div class="modal-content">
 
-                    <div id="modaledit" class="modal fade" role="dialog">
+                                <div class="modal-header">
+
+
+                                    <h4 class="modal-title">Are You Sure To Delete ? </h4>
+
+
+                                 </div>
+
+                                <div class="modal-body">
+                                    <form action="{{url_for('deleteproduct')}}" method="POST">
+                                        <div class="form-group">
+                                            <input type="hidden"  name="m_syscode" value="{{row.m_syscode}}">
+                                              </div>
+
+                                <div class="form-group">
+
+                                    <button class="btn btn-danger btn-xs" type="submit" >Delete</button>
+
+                                </div>
+                                    </form>
+                                </div>
+                                 <div class="modal-footer">
+
+
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+
+
+                                 </div>
+
+                            </div>
+                            </div>
+                            </div>
+
+                    <div id="modaledit{{row.m_syscode}}" class="modal fade" role="dialog">
                         <div class="modal-dialog">
                             <div class="modal-content">
 
@@ -55,12 +92,36 @@
 
                                  </div>
                                 <div class="modal-body">
-                                    <form action="" method="POST">
+                                    <form action="{{url_for('updateproduct')}}" method="POST">
+                                        <div class="form-group">
+                                            <input type="hidden"  name="m_syscode" value="{{row.m_syscode}}">
+                                            <label>M Code:</label>
+                                            <input type="text" class="form-control" name="m_code" value="{{row.m_code}} ">
+                                        </div>
                                         <div class="form-group">
                                             <label>Name:</label>
-                                            <input type="text" class="form-control" name="name" required="">
+                                            <input type="text" class="form-control" name="m_name" value="{{row.m_name}} ">
                                         </div>
-
+                                         <div class="form-group">
+                                            <label>Short Name:</label>
+                                            <input type="text" class="form-control" name="m_short_name" value="{{row.m_short_name}} ">
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Parent Code:</label>
+                                            <input type="text" class="form-control" name="m_parent_code" value="{{row.m_parent_code}} ">
+                                        </div>
+                                          <div class="form-group">
+                                            <label>Abstract:</label>
+                                            <input type="text" class="form-control" name="m_abstract" value="{{row.m_abstract}} ">
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Category:</label>
+                                            <input type="text" class="form-control" name="m_category" value="{{row.m_category}} ">
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Is Active:</label>
+                                            <input type="text" class="form-control" name="is_active" value="{{row.is_active}} ">
+                                        </div>
                                 <div class="form-group">
 
                                     <button class="btn btn-primary" type="submit">Update</button>
@@ -81,7 +142,7 @@
                     </div>
 
 
-
+                {% endfor %}
                  </table>
              </div>
              <div id="mymodal" class="modal fade" role="dialog">
@@ -117,7 +178,7 @@
                                         </div>
                                           <div class="form-group">
                                             <label>Abstract:</label>
-                                            <input type="text" class="form-control" name="m_abstract" required="">
+                                            <input type="text" class="form-control" name="m_abstract" >
                                         </div>
                                           <div class="form-group">
                                             <label>Category:</label>
@@ -125,11 +186,11 @@
                                         </div>
                                         <div class="form-group">
                                             <label>Is Active:</label>
-                                            <input type="text" class="form-control" name="is_active" required="">
+                                            <input type="text" class="form-control" name="is_active" >
                                         </div>
                                 <div class="form-group">
 
-                                    <button class="btn btn-primary" type="submit">Update</button>
+                                    <button class="btn btn-primary" type="submit">Create</button>
 
                                 </div>
                                     </form>

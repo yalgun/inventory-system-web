@@ -8,9 +8,9 @@ class ProductModel(db.Model):
         m_name = db.Column(db.String(25))
         m_short_name = db.Column(db.String(10))
         m_parent_code = db.Column(db.String(15))
-        m_abstract = db.Column(db.Binary)
+        m_abstract = db.Column(db.LargeBinary)
         m_category = db.Column(db.String(12))
-        is_active = db.Column(db.Binary)
+        is_active = db.Column(db.LargeBinary)
 
         def __init__(self, m_code, m_name, m_short_name, m_parent_code, m_abstract, m_category, is_active):
             self.m_code = m_code
@@ -39,9 +39,11 @@ class UserModel(db.Model):
     person_password = db.Column(db.String(200))
 
 
+
     def __init__(self, person_name, person_password):
         self.person_name = person_name
         self.person_password = person_password
+
 
 class ProductFeaturesModel(db.Model):
         __tablename__ = 'product-features-model'
@@ -82,6 +84,7 @@ class OrganizationsModel(db.Model):
         org_District = db.Column(db.String(50))
         org_Type = db.Column(db.Integer)
 
+
         def __init__(self, org_name, parent_org, org_abstract, org_Address, org_City, org_District, org_Type):
             self.org_name = org_name
             self.parent_org = parent_org
@@ -90,6 +93,7 @@ class OrganizationsModel(db.Model):
             self.org_City = org_City
             self.org_District = org_District
             self.org_Type = org_Type
+
 
 class BrandsOrgsModel(db.Model):
         __tablename_ = 'brands'
