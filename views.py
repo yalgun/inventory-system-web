@@ -3,7 +3,7 @@ from plistlib import Data
 from flask import render_template, request, url_for, flash
 from werkzeug.utils import redirect
 
-from databese import ProductModel, FeaturesModel, UserModel, OrganizationsModel, ManufacturersModel
+from databese import ProductModel, FeaturesModel, UserModel, OrganizationsModel, ManufacturersModel, ProductBrandsModel
 from app import app, db
 import binascii
 
@@ -168,10 +168,12 @@ def insertorganization():
         db.session.commit()
     return redirect(url_for('hello_world'))
 
+
 @app.route('/manufacturers')
 def manufacturers():
     all_data = db.session.query(ManufacturersModel).all()
     return render_template('manufacturer.html', feat=all_data)
+
 
 @app.route('/insertmanufacturers', methods=['POST'])
 def insertmanufacturers():
@@ -186,6 +188,7 @@ def insertmanufacturers():
         db.session.commit()
 
         return redirect(url_for('manufacturers'))
+
 
 @app.route('/updatemanufacturers', methods=['GET', 'POST'])
 def updatemanufacturers():
@@ -206,6 +209,7 @@ def updatemanufacturers():
         db.session.commit()
         return redirect(url_for('manufacturers'))
 
+
 @app.route('/deletemanufacturers', methods=['GET', 'POST'])
 def deletemanufacturers():
     manufacture_id = request.form['manufacturer_id']
@@ -215,6 +219,56 @@ def deletemanufacturers():
     db.session.commit()
 
     return redirect(url_for('manufacturers'))
+
+
+@app.route('/productbrands')
+def productbrands():
+    all_data = db.session.query(ProductBrandsModel).all()
+    return render_template('productbrands.html', feat=all_data)
+
+
+@app.route('/insertproductbrands', methods=['POST'])
+def insertproductbrands():
+    if request.method == 'POST':
+        brand_barcode = request.form['brand_barcode']
+        m_syscode = request.form['m_syscode']
+        brand_name = request.form['brand_name']
+        manufacturer_id = request.form['manufacturer_id']
+        my_data = ProductBrandsModel(brand_barcode, m_syscode, brand_name, manufacturer_id)
+        db.session.add(my_data)
+        db.session.commit()
+
+        return redirect(url_for('productbrands'))
+
+
+@app.route('/updateproductbrands', methods=['GET', 'POST'])
+def updateproductbrands():
+    if request.method == 'POST':
+        brand_barcode = request.form['brand_barcode']
+        m_syscode = request.form['m_syscode']
+        brand_name = request.form['brand_name']
+        manufacturer_id = request.form['manufacturer_id']
+
+        my_data = db.session.query(ProductBrandsModel).get({'brand_barcode': brand_barcode, 'm_syscode': m_syscode})
+        my_data.brand_barcode = request.form['brand_barcode']
+        my_data.m_syscode = request.form['m_syscode']
+        my_data.brand_name = request.form['brand_name']
+        my_data.manufacturer_id = request.form['manufacturer_id']
+
+        db.session.commit()
+        return redirect(url_for('productbrands'))
+
+
+@app.route('/deleteproductbrands', methods=['GET', 'POST'])
+def deleteproductbrands():
+    brand_barcode = request.form['brand_barcode']
+    m_syscode = request.form['m_syscode']
+
+    my_data = db.session.query(ProductBrandsModel).get({'brand_barcode': brand_barcode, 'm_syscode': m_syscode})
+    db.session.delete(my_data)
+    db.session.commit()
+
+    return redirect(url_for('productbrands'))
 
 
 if __name__ == '__main__':

@@ -10,33 +10,31 @@
     <div class="row">
          <div class="col md-12">
              <div class="jumbotron p-3">
-             <h2>Manage <b>Manufacturers </b><button type="button"  class="btn btn-success float-right"
-                data-toggle="modal" data-target="#mymodal">Add New Manufacturer</button> </h2>
+             <h2>Manage <b>Product Brands </b><button type="button"  class="btn btn-success float-right"
+                data-toggle="modal" data-target="#mymodal">Add New Product Brand</button> </h2>
 
                  <table class="table table-hover table-dark">
                     <tr>
+                        <th>Brand Barcode</th>
                         <th>ID</th>
-                        <th>Name</th>
-                        <th>Address </th>
-                        <th>City</th>
-                        <th>Country</th>
+                        <th>Brand Name</th>
+                        <th>Manufacturer ID</th>
                     </tr>
                      {% for row in feat %}
                      <tr>
+                         <th>{{row.brand_barcode}}</th>
+                         <th>{{row.m_syscode}}</th>
+                         <th>{{row.brand_name}}</th>
                          <th>{{row.manufacturer_id}}</th>
-                         <th>{{row.manufacturer_name}}</th>
-                         <th>{{row.manufacturer_address}}</th>
-                         <th>{{row.city}}</th>
-                         <th>{{row.country}}</th>
 
                          <td>
-                             <a href="/updatemanufacturers/{{ row.manufacturer_id }}" class="btn btn-warning btn-xs" data-toggle="modal" data-target="#modaledit{{row.manufacturer_id}}">Edit</a>
-                            <a href="/deletemanufacturers/{{ row.manufacturer_id }}" class="btn btn-danger btn-xs" data-toggle="modal" data-target="#modaldelete{{row.manufacturer_id}}" >Delete</a>
+                             <a href="/updateproductbrands/{{ row.m_syscode }}" class="btn btn-warning btn-xs" data-toggle="modal" data-target="#modaledit{{row.brand_barcode}}">Edit</a>
+                            <a href="/deleteproductbrands/{{ row.m_syscode }}" class="btn btn-danger btn-xs" data-toggle="modal" data-target="#modaldelete{{row.brand_barcode}}" >Delete</a>
                          </td>
 
                      </tr>
 
-                         <div id="modaldelete{{row.manufacturer_id}}" class="modal fade" role="dialog">
+                         <div id="modaldelete{{row.brand_barcode}}" class="modal fade" role="dialog">
                             <div class="modal-dialog">
                             <div class="modal-content">
 
@@ -49,9 +47,10 @@
                                  </div>
 
                                 <div class="modal-body">
-                                    <form action="{{url_for('deletemanufacturers')}}" method="POST">
+                                    <form action="{{url_for('deleteproductbrands')}}" method="POST">
                                         <div class="form-group">
-                                            <input type="hidden"  name="manufacturer_id" value="{{row.manufacturer_id}}">
+                                            <input type="hidden"  name="m_syscode" value="{{row.m_syscode}}">
+                                            <input type="hidden"  name="brand_barcode" value="{{row.brand_barcode}}">
                                               </div>
 
                                 <div class="form-group">
@@ -73,36 +72,29 @@
                             </div>
                             </div>
 
-                    <div id="modaledit{{row.manufacturer_id}}" class="modal fade" role="dialog">
+                    <div id="modaledit{{row.brand_barcode}}" class="modal fade" role="dialog">
                         <div class="modal-dialog">
                             <div class="modal-content">
 
                                 <div class="modal-header">
 
 
-                                    <h4 class="modal-title">Update Manufacturer</h4>
+                                    <h4 class="modal-title">Update Product Brands</h4>
 
 
                                  </div>
                                 <div class="modal-body">
-                                    <form action="{{url_for('updatemanufacturers')}}" method="POST">
+                                    <form action="{{url_for('updateproductbrands')}}" method="POST">
                                         <div class="form-group">
-                                            <input type="hidden"  name="manufacturer_id" value="{{row.manufacturer_id}}">
-                                            <label>Name</label>
-                                            <input type="text" class="form-control" name="manufacturer_name" value="{{row.manufacturer_name}} ">
+                                            <input type="hidden"  name="brand_barcode" value="{{row.brand_barcode}}">
+                                            <input type="hidden"  name="m_syscode" value="{{row.m_syscode}}">
+                                            <label>Brand Name</label>
+                                            <input type="text" class="form-control" name="brand_name" value="{{row.brand_name}} ">
                                         </div>
 
                                         <div class="form-group">
-                                            <label>Address:</label>
-                                            <input type="text" class="form-control" name="manufacturer_address" value="{{row.manufacturer_address}} ">
-                                        </div>
-                                         <div class="form-group">
-                                            <label>City:</label>
-                                            <input type="text" class="form-control" name="city" value="{{row.city}} ">
-                                        </div>
-                                        <div class="form-group">
-                                            <label>Country:</label>
-                                            <input type="text" class="form-control" name="country" value="{{row.country}} ">
+                                            <label>Manufacturer ID:</label>
+                                            <input type="text" class="form-control" name="manufacturer_id" value="{{row.manufacturer_id}} ">
                                         </div>
                                 <div class="form-group">
 
@@ -134,33 +126,29 @@
                                 <div class="modal-header">
 
 
-                                    <h4 class="modal-title">Add New Manufacturer</h4>
+                                    <h4 class="modal-title">Add New Product Brand</h4>
 
 
                                  </div>
 
                                 <div class="modal-body">
-                                    <form action="{{url_for('insertmanufacturers')}}" method="POST">
+                                    <form action="{{url_for('insertproductbrands')}}" method="POST">
                                         <div class="form-group">
-                                            <label>Manufacturer ID:</label>
-                                            <input type="text" class="form-control" name="manufacturer_id" required="">
+                                            <label>Brand Barcode:</label>
+                                            <input type="text" class="form-control" name="brand_barcode" required="">
                                         </div>
 
                                          <div class="form-group">
-                                            <label>Name:</label>
-                                            <input type="text" class="form-control" name="manufacturer_name" required="">
+                                            <label>M_Syscode:</label>
+                                            <input type="text" class="form-control" name="m_syscode" required="">
                                         </div>
                                           <div class="form-group">
-                                            <label>Address:</label>
-                                            <input type="text" class="form-control" name="manufacturer_address" required="">
+                                            <label>Brand Name:</label>
+                                            <input type="text" class="form-control" name="brand_name" required="">
                                         </div>
                                         <div class="form-group">
-                                            <label>City:</label>
-                                            <input type="text" class="form-control" name="city" required="">
-                                        </div>
-                                          <div class="form-group">
-                                            <label>Country:</label>
-                                            <input type="text" class="form-control" name="country" required="">
+                                            <label>Manufacturer ID:</label>
+                                            <input type="text" class="form-control" name="manufacturer_id" required="">
                                         </div>
                                 <div class="form-group">
 
