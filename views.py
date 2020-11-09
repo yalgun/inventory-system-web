@@ -196,7 +196,7 @@ def updatemanufacturers():
         city = request.form['city']
         country = request.form['country']
 
-        my_data = db.session.query(ProductModel).get(manufacturer_id)
+        my_data = db.session.query(ManufacturersModel).get(manufacturer_id)
         my_data.manufacturer_id = request.form['manufacturer_id']
         my_data.manufacturer_name = request.form['manufacturer_name']
         my_data.manufacturer_address = request.form['manufacturer_address']

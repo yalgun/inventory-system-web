@@ -73,6 +73,21 @@ class ManufacturersModel(db.Model):
             self.city = city
             self.country = country
 
+class ProductBrandsModel(db.Model):
+    __tablename__='product-brands'
+
+    brand_barcode = db.Column(db.String(13), primary_key=True)
+    m_syscode = db.Column(db.Integer, primary_key=True)
+    brand_name = db.Column(db.String(100))
+    manufacturer_id = db.column(db.Integer)
+
+    def __init__(self, brand_barcode, m_syscode, brand_name, manufacturer_id):
+        self.brand_barcode = brand_barcode
+        self.m_syscode = m_syscode
+        self.brand_name = brand_name
+        self.manufacturer_id = manufacturer_id
+
+
 class OrganizationsModel(db.Model):
         __tablename__ = 'organizations'
 
