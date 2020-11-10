@@ -327,5 +327,19 @@ def updateorganization():
         db.session.commit()
 
     return redirect(url_for('organization'))
+
+@app.route('/safedeleteorganization', methods=['GET', 'POST'])
+def safedeleteorganization():
+    num = request.form['org_id']
+
+    my_data = db.session.query(OrganizationsModel).get(num)
+    newcode = my_data.parent_org
+    organizasyon = db.session.query(OrganizationsModel).filter(OrganizationsModel.parent_org == num)
+    for row in organizasyon:
+        row.parent_org = newcode
+    db.session.delete(my_data)
+    db.session.commit()
+
+    return redirect(url_for('organization'))
 if __name__ == '__main__':
     app.run()

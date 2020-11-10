@@ -63,9 +63,49 @@
                          <td>
                              <a href="/updateorganization/{{ row.org_id }}" class="btn btn-warning btn-xs" data-toggle="modal" data-target="#modaledit{{row.org_id}}">Edit</a>
                             <a href="/deleteorganization/{{ row.org_id }}" class="btn btn-danger btn-xs" data-toggle="modal" data-target="#modaldelete{{row.org_id}}" >Delete</a>
+                             <a href="/safedeleteorganization/{{ row.org_id }}" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#modalsafedelete{{row.org_id}}" >Safe Delete</a>
+
                          </td>
 
                      </tr>
+
+                            <div id="modalsafedelete{{row.org_id}}" class="modal fade" role="dialog">
+                            <div class="modal-dialog">
+                            <div class="modal-content">
+
+                                <div class="modal-header">
+
+
+                                    <h4 class="modal-title">Are You Sure To Safe Delete ? </h4>
+
+
+                                 </div>
+
+                                <div class="modal-body">
+                                    <form action="{{url_for('safedeleteorganization')}}" method="POST">
+                                        <div class="form-group">
+                                            <input type="hidden"  name="org_id" value="{{row.org_id}}">
+                                              </div>
+
+                                <div class="form-group">
+
+                                    <button class="btn btn-danger btn-xs" type="submit" >Delete</button>
+
+                                </div>
+                                    </form>
+                                </div>
+                                 <div class="modal-footer">
+
+
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+
+
+                                 </div>
+
+                            </div>
+                            </div>
+                            </div>
+
 
                      <div id="modaldelete{{row.org_id}}" class="modal fade" role="dialog">
                             <div class="modal-dialog">
