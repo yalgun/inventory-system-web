@@ -94,11 +94,16 @@ def insertproduct():
         m_abstract = request.form['m_abstract']
         m_category = request.form['m_category']
         is_active = request.form['is_active']
-        m_abstract.strip()
-        is_active.strip()
-        guid_tag = binascii.unhexlify(m_abstract)
-        isac = binascii.unhexlify(is_active)
-        my_data = ProductModel(m_code, m_name, m_short_name, m_parent_code, guid_tag, m_category, isac)
+
+        #m_abstract.strip()
+       # is_active.strip()
+        a=True
+        if m_abstract == 0:
+            a = False
+        b = True
+        #guid_tag = binascii.unhexlify(m_abstract)
+        #isac = binascii.unhexlify(is_active)
+        my_data = ProductModel(m_code, m_name, m_short_name, m_parent_code, m_abstract, m_category, is_active)
         db.session.add(my_data)
         db.session.commit()
 
@@ -116,16 +121,16 @@ def updateproduct():
         m_category = request.form['m_category']
         is_active = request.form['is_active']
 
-        guid_tag = binascii.unhexlify(m_abstract)
-        isac = binascii.unhexlify(is_active)
+        #guid_tag = binascii.unhexlify(m_abstract)
+        #isac = binascii.unhexlify(is_active)
 
         my_data = db.session.query(ProductModel).get(m_code)
         my_data.m_name = request.form['m_name']
         my_data.m_short_name = request.form['m_short_name']
         my_data.m_parent_code = request.form['m_parent_code']
-        my_data.m_abstract = guid_tag
+        my_data.m_abstract = request.form['m_abstract']
         my_data.m_category = request.form['m_category']
-        my_data.is_active = isac
+        my_data.is_active = request.form['is_active']
 
         db.session.commit()
         return redirect(url_for('product'))
@@ -154,11 +159,10 @@ def insertorganization():
         org_Address = request.form['org_Adress']
         org_District = request.form['org_District']
         parent_org = 0
-        org_abstract = ''
-        isac = binascii.unhexlify(org_abstract)
+        org_abstract = 0
         org_City = 0
         org_Type = 0
-        myOrg = OrganizationsModel(org_name, parent_org, isac, org_Address, org_City, org_District, org_Type)
+        myOrg = OrganizationsModel(org_name, parent_org, org_abstract, org_Address, org_City, org_District, org_Type)
         db.session.add(myOrg)
         db.session.commit()
         person_name = request.form['person_name']
@@ -270,6 +274,58 @@ def deleteproductbrands():
 
     return redirect(url_for('productbrands'))
 
+@app.route('/organization')
+def organization():
+    all_data = db.session.query(OrganizationsModel).all()
+    return render_template('organization.html', feat=all_data)
 
+@app.route('/insertorganizationTable', methods=['POST'])
+def insertorganizationTable():
+    if request.method == 'POST':
+        org_name = request.form['org_name']
+        org_Address = request.form['org_Adress']
+        org_District = request.form['org_District']
+        parent_org = request.form['parent_org']
+        org_abstract = request.form['org_abstract']
+        org_City = request.form['org_City']
+        org_Type = request.form['org_Type']
+        myOrg = OrganizationsModel(org_name, parent_org, org_abstract, org_Address, org_City, org_District, org_Type)
+        db.session.add(myOrg)
+        db.session.commit()
+    return redirect(url_for('organization'))
+
+
+@app.route('/deleteorganization', methods=['GET', 'POST'])
+def deleteorganization():
+    num = request.form['org_id']
+
+    my_data = db.session.query(OrganizationsModel).get(num)
+    db.session.delete(my_data)
+    db.session.commit()
+
+    return redirect(url_for('organization'))
+
+@app.route('/updateorganization', methods=['GET', 'POST'])
+def updateorganization():
+    if request.method == 'POST':
+        org_name = request.form['org_name']
+        org_Address = request.form['org_Adress']
+        org_District = request.form['org_District']
+        parent_org = request.form['parent_org']
+        org_abstract = request.form['org_abstract']
+        org_City = request.form['org_City']
+        org_Type = request.form['org_Type']
+        num=request.form['org_id']
+        my_data = db.session.query(OrganizationsModel).get(num)
+        my_data.org_name = request.form['org_name']
+        my_data.org_Adress = request.form['org_Adress']
+        my_data.org_District = request.form['org_District']
+        my_data.parent_org = request.form['parent_org']
+        my_data.org_abstract = request.form['org_abstract']
+        my_data.org_City = request.form['org_City']
+        my_data.org_Type = request.form['org_Type']
+        db.session.commit()
+
+    return redirect(url_for('organization'))
 if __name__ == '__main__':
     app.run()
