@@ -1,0 +1,244 @@
+{% extends 'base.html' %}
+{% include 'header.html' %}
+
+{% block title %} Home {% endblock %}
+
+
+{% block body %}
+
+<div class="container">
+    <div class="row">
+         <div class="col md-12">
+             <div class="jumbotron p-3">
+             <h2>Manage <b>Organizations </b><button type="button"  class="btn btn-success float-right"
+                data-toggle="modal" data-target="#mymodal">Add New Organization</button> </h2>
+                 {% with messages = get_flashed_messages() %}
+
+                {% if messages %}
+
+                {% for message in messages %}
+
+                <div class="alert alert-success alert-dismissable" role="alert">
+
+                    <button type="button" class="close" data-dismiss="alert" aria-label="close">
+
+                        <span aria-hidden="true">x</span>
+
+                    </button>
+
+
+                {{message}}
+
+
+                </div>
+
+
+                {% endfor %}
+
+                {% endif %}
+                {% endwith %}
+                 <table class="table table-hover table-dark">
+
+                    <tr>
+                        <th>ID</th>
+                        <th>Name</th>
+                         <th>Parent Organization</th>
+                         <th>Organization Abstract</th>
+                        <th>Organization Adress</th>
+                        <th>Organization City</th>
+                        <th>Organization District</th>
+                        <th>Organization Type</th>
+                        <th>Action</th>
+                    </tr>
+                     {% for row in feat %}
+                     <tr>
+                         <th>{{row.org_id}}</th>
+                         <th>{{row.org_name}}</th>
+                         <th>{{row.parent_org}}</th>
+                         <th>{{row.org_abstract}}</th>
+                         <th>{{row.org_Address}}</th>
+                         <th>{{row.org_City}}</th>
+                         <th>{{row.org_District}}</th>
+                         <th>{{row.org_Type}}</th>
+                         <td>
+                             <a href="/updateorganization/{{ row.org_id }}" class="btn btn-warning btn-xs" data-toggle="modal" data-target="#modaledit{{row.org_id}}">Edit</a>
+                            <a href="/deleteorganization/{{ row.org_id }}" class="btn btn-danger btn-xs" data-toggle="modal" data-target="#modaldelete{{row.org_id}}" >Delete</a>
+                         </td>
+
+                     </tr>
+
+                     <div id="modaldelete{{row.org_id}}" class="modal fade" role="dialog">
+                            <div class="modal-dialog">
+                            <div class="modal-content">
+
+                                <div class="modal-header">
+
+
+                                    <h4 class="modal-title">Are You Sure To Delete ? </h4>
+
+
+                                 </div>
+
+                                <div class="modal-body">
+                                    <form action="{{url_for('deleteorganization')}}" method="POST">
+                                        <div class="form-group">
+                                            <input type="hidden"  name="org_id" value="{{row.org_id}}">
+                                              </div>
+
+                                <div class="form-group">
+
+                                    <button class="btn btn-danger btn-xs" type="submit" >Delete</button>
+
+                                </div>
+                                    </form>
+                                </div>
+                                 <div class="modal-footer">
+
+
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+
+
+                                 </div>
+
+                            </div>
+                            </div>
+                            </div>
+
+
+
+
+
+
+                    <div id="modaledit{{row.org_id}}" class="modal fade" role="dialog">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+
+                                <div class="modal-header">
+
+
+                                    <h4 class="modal-title">Update Features</h4>
+
+
+                                 </div>
+                                <div class="modal-body">
+                                    <form action="{{url_for('updateorganization')}}" method="POST">
+                                        <div class="form-group">
+                                            <input type="hidden"  name="org_id" value="{{row.org_id}}">
+                                            <label>Name:</label>
+                                            <input type="text" class="form-control" name="org_name" value="{{row.org_name}} ">
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Parent Organization:</label>
+                                            <input type="text" class="form-control" name="parent_org" value="{{row.parent_org}} ">
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Organization Abstract:</label>
+                                            <input type="text" class="form-control" name="org_abstract" value="{{row.org_abstract}} ">
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Organization Adress:</label>
+                                            <input type="text" class="form-control" name="org_Adress" value="{{row.org_Adress}} ">
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Organization's City:</label>
+                                            <input type="text" class="form-control" name="org_City" value="{{row.org_City}} ">
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Organization District:</label>
+                                            <input type="text" class="form-control" name="org_District" value="{{row.org_District}} ">
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Organization Type:</label>
+                                            <input type="text" class="form-control" name="org_Type" value="{{row.org_Type}} ">
+                                        </div>
+
+                                <div class="form-group">
+
+                                    <button class="btn btn-primary" type="submit">Update</button>
+
+                                </div>
+                                    </form>
+                                </div>
+                                 <div class="modal-footer">
+
+
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+
+
+                                 </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+
+            {% endfor %}
+                 </table>
+             </div>
+             <div id="mymodal" class="modal fade" role="dialog">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+
+                                <div class="modal-header">
+
+
+                                    <h4 class="modal-title">Add New Organizations</h4>
+
+
+                                 </div>
+
+                                <div class="modal-body">
+                                    <form action="{{url_for('insertorganizationTable')}}" method="POST">
+                                        <div class="form-group">
+                                            <label>Name:</label>
+                                            <input type="text" class="form-control" name="org_name" required="">
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Parent Organization:</label>
+                                            <input type="text" class="form-control" name="parent_org" >
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Organization Abstract:</label>
+                                            <input type="text" class="form-control" name="org_abstract" >
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Organization Adress:</label>
+                                            <input type="text" class="form-control" name="org_Adress" required="">
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Organization's City:</label>
+                                            <input type="text" class="form-control" name="org_City" required="">
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Organization District:</label>
+                                            <input type="text" class="form-control" name="org_District" >
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Organization Type:</label>
+                                            <input type="text" class="form-control" name="org_Type" >
+                                        </div>
+
+                                <div class="form-group">
+
+                                    <button class="btn btn-primary" type="submit">Add</button>
+
+                                </div>
+                                    </form>
+                                </div>
+                                 <div class="modal-footer">
+
+
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+
+
+                                 </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+         </div>
+
+</div>
+</div>
+{% endblock %}
