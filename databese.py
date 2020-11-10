@@ -1,4 +1,5 @@
 from flask_sqlalchemy import SQLAlchemy
+from sqlalchemy import ForeignKey
 from app import db
 
 
@@ -10,9 +11,9 @@ class ProductModel(db.Model):
     m_name = db.Column(db.String(25))
     m_short_name = db.Column(db.String(10))
     m_parent_code = db.Column(db.String(15))
-    m_abstract = db.Column(db.LargeBinary)
+    m_abstract = db.Column(db.Boolean)
     m_category = db.Column(db.String(12))
-    is_active = db.Column(db.LargeBinary)
+    is_active = db.Column(db.Boolean)
 
     def __init__(self, m_code, m_name, m_short_name, m_parent_code, m_abstract, m_category, is_active):
         self.m_code = m_code
@@ -50,7 +51,7 @@ class ProductFeaturesModel(db.Model):
     __tablename__ = 'product-features-model'
 
     m_syscode = db.Column(db.Integer, primary_key=True)
-    feature_id = db.Column(db.Integer, primary_key=True)
+    feature_id = db.Column(db.Integer, ForeignKey('features.feature_id'), primary_key=True)
     minval = db.Column(db.Float)
 
     def __init__(self, m_syscode, feature_id, minval):
@@ -65,8 +66,8 @@ class ManufacturersModel(db.Model):
     manufacturer_id = db.Column(db.Integer, primary_key=True)
     manufacturer_name = db.Column(db.String(200))
     manufacturer_address = db.Column(db.String(200))
-    city = db.Column(db.Integer)
-    country = db.Column(db.String(2))
+    city = db.Column(db.Integer, ForeignKey('country-city.city_id'))
+    country = db.Column(db.String(2), ForeignKey('country.country_code'))
 
     def __init__(self, manufacturer_id, manufacturer_name, manufacturer_address, city, country):
         self.manufacturer_id = manufacturer_id
@@ -80,9 +81,9 @@ class ProductBrandsModel(db.Model):
     __tablename__ = 'product-brands-model'
 
     brand_barcode = db.Column(db.String(13), primary_key=True)
-    m_syscode = db.Column(db.Integer, primary_key=True)
+    m_syscode = db.Column(db.Integer, ForeignKey('product.m_syscode'), primary_key=True)
+    manufacturer_id = db.Column(db.Integer, ForeignKey('my_schema.manufacturer.manufacturer_id'))
     brand_name = db.Column(db.String(100))
-    manufacturer_id = db.Column(db.Integer)
 
     def __init__(self, brand_barcode, m_syscode, brand_name, manufacturer_id):
         self.brand_barcode = brand_barcode
@@ -97,7 +98,7 @@ class OrganizationsModel(db.Model):
     org_id = db.Column(db.Integer, primary_key=True)
     org_name = db.Column(db.String())
     parent_org = db.Column(db.Integer)
-    org_abstract = db.Column(db.Binary)
+    org_abstract = db.Column(db.Boolean)
     org_Address = db.Column(db.String(200))
     org_City = db.Column(db.Integer)
     org_District = db.Column(db.String(50))
@@ -117,8 +118,8 @@ class BrandsOrgsModel(db.Model):
     __tablename_ = 'brands'
 
     lot_id = db.Column(db.Integer, primary_key=True)
-    org_id = db.Column(db.Integer, primary_key=True)
-    brand_barcode = db.Column(db.Integer, primary_key=True)
+    org_id = db.Column(db.Integer, ForeignKey('organizations.org_id'), primary_key=True)
+    brand_barcode = db.Column(db.String(13), primary_key=True)  # Bunu da ekleyemedim !!!!!!!!!!!!!
     in_amount = db.Column(db.Integer)
     out_amount = db.Column(db.Integer)
     total_amount = db.Column(db.Integer)
@@ -138,7 +139,7 @@ class FlowModel(db.Model):
     source_org_id = db.Column(db.Integer, primary_key=True)
     target_lot_id = db.Column(db.Integer, primary_key=True)
     target_org_id = db.Column(db.Integer, primary_key=True)
-    brand_brandcode = db.Column(db.Integer, primary_key=True)
+    brand_brandcode = db.Column(db.Integer, primary_key=True)  # Brand barcodları ekleyemiyorum !!!!!!!!!!!!!!!!!!!!
 
     def __init__(self, source_lot_id, source_org_id, target_lot_id, target_org_id, brand_brandcode):
         self.source_lot_id = source_lot_id
@@ -170,7 +171,7 @@ class CountryModel(db.Model):
         self.country_name = country_name
 
 
-class CountyCityModel(db.Model):
+class CountryCityModel(db.Model):
     __tablename__ = 'country-city'
 
     city_id = db.Column(db.Integer, primary_key=True)

@@ -3,7 +3,8 @@ from plistlib import Data
 from flask import render_template, request, url_for, flash
 from werkzeug.utils import redirect
 
-from databese import ProductModel, FeaturesModel, UserModel, OrganizationsModel, ManufacturersModel, ProductBrandsModel
+from databese import ProductModel, FeaturesModel, UserModel, OrganizationsModel, ManufacturersModel, ProductBrandsModel, \
+    BrandsOrgsModel
 from app import app, db
 import binascii
 
@@ -269,6 +270,13 @@ def deleteproductbrands():
     db.session.commit()
 
     return redirect(url_for('productbrands'))
+
+
+@app.route('/brand_organization')
+def brandOrganization():
+    data = db.session.query(OrganizationsModel, BrandsOrgsModel, ProductBrandsModel).filter(
+        OrganizationsModel.org_id == BrandsOrgsModel.org_id and ProductBrandsModel.brand_barcode == BrandsOrgsModel.brand_barcode).all()
+    return render_template('brand_organization.html', feat=data)
 
 
 if __name__ == '__main__':
