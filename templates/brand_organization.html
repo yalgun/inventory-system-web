@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% include 'header.html' %}
+
+{% block title %} Home {% endblock %}
+
+
+{% block body %}
+
+    <div class="container">
+        <div class="row">
+            <div class="col md-12">
+                <div class="jumbotron p-3">
+                    <h2>Manage <b>Brand/Organization </b></h2>
+
+                    <table class="table table-hover table-dark">
+                        <tr>
+                            <th>Brand Code</th>
+                            <th>Brand Name</th>
+                            <th>Organization ID</th>
+                            <th>Organization Name</th>
+                        </tr>
+                        {% for row in feat %}
+                            <tr>
+                                <th>{{ row.brand_barcode }}</th>
+                                <th>{{ row.brand_name }}</th>
+                                <th>{{ row.org_id }}</th>
+                                <th>{{ row.org_name }}</th>
+                            </tr>
+                        {% endfor %}
+                    </table>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+{% endblock %}

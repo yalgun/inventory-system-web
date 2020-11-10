@@ -185,6 +185,3 @@ class CountryCityModel(db.Model):
 db.create_all()
 db.session.commit()
 
-myUser = UserModel('yavuz', '1234')
-db.session.add(myUser)
-db.session.commit()

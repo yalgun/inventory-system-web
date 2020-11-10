@@ -52,6 +52,7 @@ def insertfeatures():
         db.session.add(myFeatures)
         db.session.commit()
         # Flash("New Feature is added")
+
     return redirect(url_for('features'))
 
 
@@ -82,6 +83,7 @@ def deletefeatures():
 @app.route('/product')
 def product():
     all_data = db.session.query(ProductModel).all()
+    print(all_data)
     return render_template('product.html', feat=all_data)
 
 
@@ -274,7 +276,7 @@ def deleteproductbrands():
 
 @app.route('/brand_organization')
 def brandOrganization():
-    data = db.session.query(OrganizationsModel, BrandsOrgsModel, ProductBrandsModel).filter(
+    data = db.session.query(OrganizationsModel.org_name,OrganizationsModel.org_id, BrandsOrgsModel, ProductBrandsModel.brand_barcode,ProductBrandsModel.brand_name).filter(
         OrganizationsModel.org_id == BrandsOrgsModel.org_id and ProductBrandsModel.brand_barcode == BrandsOrgsModel.brand_barcode).all()
     return render_template('brand_organization.html', feat=data)
 
