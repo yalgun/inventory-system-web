@@ -11,9 +11,9 @@ class ProductModel(db.Model):
     m_name = db.Column(db.String(25))
     m_short_name = db.Column(db.String(10))
     m_parent_code = db.Column(db.String(15))
-    m_abstract = db.Column(db.Boolean)
+    m_abstract = db.Column(db.Integer)
     m_category = db.Column(db.String(12))
-    is_active = db.Column(db.Boolean)
+    is_active = db.Column(db.Integer)
 
     def __init__(self, m_code, m_name, m_short_name, m_parent_code, m_abstract, m_category, is_active):
         self.m_code = m_code
@@ -82,7 +82,7 @@ class ProductBrandsModel(db.Model):
 
     brand_barcode = db.Column(db.String(13), primary_key=True)
     m_syscode = db.Column(db.Integer, ForeignKey('product.m_syscode'), primary_key=True)
-    manufacturer_id = db.Column(db.Integer, ForeignKey('my_schema.manufacturer.manufacturer_id'))
+    manufacturer_id = db.Column(db.Integer)
     brand_name = db.Column(db.String(100))
 
     def __init__(self, brand_barcode, m_syscode, brand_name, manufacturer_id):
@@ -98,7 +98,7 @@ class OrganizationsModel(db.Model):
     org_id = db.Column(db.Integer, primary_key=True)
     org_name = db.Column(db.String())
     parent_org = db.Column(db.Integer)
-    org_abstract = db.Column(db.Boolean)
+    org_abstract = db.Column(db.Integer)
     org_Address = db.Column(db.String(200))
     org_City = db.Column(db.Integer)
     org_District = db.Column(db.String(50))
@@ -183,4 +183,8 @@ class CountryCityModel(db.Model):
 
 
 db.create_all()
+db.session.commit()
+
+myUser = UserModel('yavuz', '1234')
+db.session.add(myUser)
 db.session.commit()
