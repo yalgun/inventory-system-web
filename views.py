@@ -4,7 +4,7 @@ from flask import render_template, request, url_for, flash
 from werkzeug.utils import redirect
 
 from databese import ProductModel, FeaturesModel, UserModel, OrganizationsModel, ManufacturersModel, ProductBrandsModel, \
-    BrandsOrgsModel
+    BrandsOrgsModel, ProductFeaturesModel
 from app import app, db
 import binascii
 
@@ -276,9 +276,19 @@ def deleteproductbrands():
 
 @app.route('/brand_organization')
 def brandOrganization():
-    data = db.session.query(OrganizationsModel.org_name,OrganizationsModel.org_id, BrandsOrgsModel, ProductBrandsModel.brand_barcode,ProductBrandsModel.brand_name).filter(
+    data = db.session.query(OrganizationsModel.org_name, OrganizationsModel.org_id, BrandsOrgsModel,
+                            ProductBrandsModel.brand_barcode, ProductBrandsModel.brand_name).filter(
         OrganizationsModel.org_id == BrandsOrgsModel.org_id and ProductBrandsModel.brand_barcode == BrandsOrgsModel.brand_barcode).all()
     return render_template('brand_organization.html', feat=data)
+
+
+@app.route('/product_features')
+def product_features():
+    data = db.session.query(ProductModel.m_syscode, ProductModel.m_code, ProductModel.m_name, ProductFeaturesModel,
+                            FeaturesModel.feature_id, FeaturesModel.feature_name).filter(
+        ProductModel.m_syscode == ProductFeaturesModel.m_syscode and FeaturesModel.feature_id == ProductFeaturesModel.id
+    ).all()
+    return render_template('product_features.html', feat=data)
 
 
 if __name__ == '__main__':

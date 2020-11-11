@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% include 'header.html' %}
+
+{% block title %} Home {% endblock %}
+
+
+{% block body %}
+
+    <div class="container">
+        <div class="row">
+            <div class="col md-12">
+                <div class="jumbotron p-3">
+                    <h2>Manage <b>Product/Features </b></h2>
+
+                    <table class="table table-hover table-dark">
+                        <tr>
+                            <th>ID</th>
+                            <th>Product M_Code</th>
+                            <th>Product Name</th>
+                            <th>Feature ID</th>
+                            <th>Feature Name</th>
+                        </tr>
+                        {% for row in feat %}
+                            <tr>
+                                <th>{{ row.m_syscode }}</th>
+                                <th>{{ row.m_code }}</th>
+                                <th>{{ row.m_name }}</th>
+                                <th>{{ row.feature_id }}</th>
+                                <th>{{ row.feature_name }}</th>
+                            </tr>
+                        {% endfor %}
+                    </table>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+{% endblock %}
