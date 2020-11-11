@@ -279,7 +279,24 @@ def brandOrganization():
     data = db.session.query(OrganizationsModel.org_name, OrganizationsModel.org_id, BrandsOrgsModel,
                             ProductBrandsModel.brand_barcode, ProductBrandsModel.brand_name).filter(
         OrganizationsModel.org_id == BrandsOrgsModel.org_id and ProductBrandsModel.brand_barcode == BrandsOrgsModel.brand_barcode).all()
-    return render_template('brand_organization.html', feat=data)
+    organizationData = db.session.query(OrganizationsModel);
+    brandData = db.session.query(ProductBrandsModel)
+    return render_template('brand_organization.html', feat=data, orgData=organizationData, brandData=brandData)
+
+
+@app.route('/linkbrandsorgs', methods=['POST'])
+def linkbrandsorgs():
+    if request.method == 'POST':
+        lot_id = request.form['lot_id']
+        brand_barcode = request.form['Brand-select']
+        org_id = request.form['Organization-select']
+        in_amount = request.form['in_amount']
+        out_amount = request.form['out_amount']
+        my_data = BrandsOrgsModel(lot_id, org_id, brand_barcode, in_amount, out_amount, in_amount + out_amount)
+        db.session.add(my_data)
+        db.session.commit()
+
+        return redirect(url_for('productbrands'))
 
 
 @app.route('/product_features')
