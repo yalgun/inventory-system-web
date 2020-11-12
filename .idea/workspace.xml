@@ -19,11 +19,10 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="dc23949f-e782-480d-b5e7-c7fbc02e6189" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/templates/OrgHeader.html" afterDir="false" />
+    <list default="true" id="dc23949f-e782-480d-b5e7-c7fbc02e6189" name="Default Changelist" comment="bugfix">
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/trade-track-task.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/trade-track-task.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/databese.py" beforeDir="false" afterPath="$PROJECT_DIR$/databese.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/brand_organization.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/brand_organization.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/views.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -101,7 +100,7 @@
       </list>
     </recent_temporary>
   </component>
-  <component name="SpellCheckerSettings" BundledDictionaries="0" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" Dictionaries="0" CorrectionsLimit="5" DefaultDictionary="application-level" UseSingleDictionary="true" />
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="SvnConfiguration">
     <configuration />
   </component>
@@ -148,13 +147,12 @@
       <map>
         <entry key="MAIN">
           <value>
-            <State>
-              <option name="COLUMN_ORDER" />
-            </State>
+            <State />
           </value>
         </entry>
       </map>
     </option>
+    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Create Read Update Feature is done&#10;Read Product is done&#10;html of Login Page  is done" />
@@ -163,38 +161,38 @@
     <option name="LAST_COMMIT_MESSAGE" value="CRUD of Features is done" />
   </component>
   <component name="WindowStateProjectService">
-    <state width="1515" height="195" key="GridCell.Tab.0.bottom" timestamp="1604864747488">
+    <state width="1515" height="209" key="GridCell.Tab.0.bottom" timestamp="1605207088182">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1515" height="195" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1604864747488" />
-    <state width="1515" height="195" key="GridCell.Tab.0.center" timestamp="1604864747488">
+    <state width="1515" height="209" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1605207088182" />
+    <state width="1515" height="209" key="GridCell.Tab.0.center" timestamp="1605207088181">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1515" height="195" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1604864747488" />
-    <state width="1515" height="195" key="GridCell.Tab.0.left" timestamp="1604864747488">
+    <state width="1515" height="209" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1605207088181" />
+    <state width="1515" height="209" key="GridCell.Tab.0.left" timestamp="1605207088181">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1515" height="195" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1604864747488" />
-    <state width="1515" height="195" key="GridCell.Tab.0.right" timestamp="1604864747488">
+    <state width="1515" height="209" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1605207088181" />
+    <state width="1515" height="209" key="GridCell.Tab.0.right" timestamp="1605207088182">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1515" height="195" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1604864747488" />
-    <state width="1515" height="195" key="GridCell.Tab.1.bottom" timestamp="1604864747336">
+    <state width="1515" height="209" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1605207088182" />
+    <state width="1515" height="73" key="GridCell.Tab.1.bottom" timestamp="1605207088179">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1515" height="195" key="GridCell.Tab.1.bottom/0.0.1536.824@0.0.1536.824" timestamp="1604864747336" />
-    <state width="1515" height="195" key="GridCell.Tab.1.center" timestamp="1604864747336">
+    <state width="1515" height="73" key="GridCell.Tab.1.bottom/0.0.1536.824@0.0.1536.824" timestamp="1605207088179" />
+    <state width="1515" height="73" key="GridCell.Tab.1.center" timestamp="1605207088179">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1515" height="195" key="GridCell.Tab.1.center/0.0.1536.824@0.0.1536.824" timestamp="1604864747336" />
-    <state width="1515" height="195" key="GridCell.Tab.1.left" timestamp="1604864747336">
+    <state width="1515" height="73" key="GridCell.Tab.1.center/0.0.1536.824@0.0.1536.824" timestamp="1605207088179" />
+    <state width="1515" height="73" key="GridCell.Tab.1.left" timestamp="1605207088179">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1515" height="195" key="GridCell.Tab.1.left/0.0.1536.824@0.0.1536.824" timestamp="1604864747336" />
-    <state width="1515" height="195" key="GridCell.Tab.1.right" timestamp="1604864747336">
+    <state width="1515" height="73" key="GridCell.Tab.1.left/0.0.1536.824@0.0.1536.824" timestamp="1605207088179" />
+    <state width="1515" height="73" key="GridCell.Tab.1.right" timestamp="1605207088179">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1515" height="195" key="GridCell.Tab.1.right/0.0.1536.824@0.0.1536.824" timestamp="1604864747336" />
+    <state width="1515" height="73" key="GridCell.Tab.1.right/0.0.1536.824@0.0.1536.824" timestamp="1605207088179" />
     <state x="147" y="65" key="MergeDialog" timestamp="1605124942952">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
@@ -203,10 +201,10 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="481" y="128" key="MultipleFileMergeDialog/0.0.1536.824@0.0.1536.824" timestamp="1605124942960" />
-    <state x="277" y="57" key="SettingsEditor" timestamp="1605023978171">
+    <state x="277" y="57" key="SettingsEditor" timestamp="1605205889633">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="277" y="57" key="SettingsEditor/0.0.1536.824@0.0.1536.824" timestamp="1605023978171" />
+    <state x="277" y="57" key="SettingsEditor/0.0.1536.824@0.0.1536.824" timestamp="1605205889633" />
     <state x="361" y="145" key="Vcs.Push.Dialog.v2" timestamp="1604850620362">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
@@ -219,10 +217,10 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="465" y="236" key="com.intellij.ide.util.TipDialog/0.0.1536.824@0.0.1536.824" timestamp="1605099044814" />
-    <state x="578" y="329" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1605124920409">
+    <state x="578" y="329" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1605207132170">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="578" y="329" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1536.824@0.0.1536.824" timestamp="1605124920409" />
+    <state x="578" y="329" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1536.824@0.0.1536.824" timestamp="1605207132170" />
     <state x="431" y="145" width="672" height="678" key="search.everywhere.popup" timestamp="1605042775239">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
@@ -243,47 +241,47 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/views.py</url>
-          <line>109</line>
+          <line>108</line>
           <option name="timeStamp" value="67" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/views.py</url>
-          <line>113</line>
+          <line>112</line>
           <option name="timeStamp" value="68" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/views.py</url>
-          <line>125</line>
+          <line>124</line>
           <option name="timeStamp" value="69" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/views.py</url>
-          <line>124</line>
+          <line>123</line>
           <option name="timeStamp" value="70" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/views.py</url>
-          <line>123</line>
+          <line>122</line>
           <option name="timeStamp" value="71" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/views.py</url>
-          <line>127</line>
+          <line>126</line>
           <option name="timeStamp" value="72" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/views.py</url>
-          <line>128</line>
+          <line>127</line>
           <option name="timeStamp" value="73" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/views.py</url>
-          <line>120</line>
+          <line>119</line>
           <option name="timeStamp" value="74" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/views.py</url>
-          <line>119</line>
+          <line>118</line>
           <option name="timeStamp" value="75" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
@@ -313,37 +311,32 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/views.py</url>
-          <line>99</line>
-          <option name="timeStamp" value="87" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/views.py</url>
-          <line>153</line>
+          <line>152</line>
           <option name="timeStamp" value="95" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/views.py</url>
-          <line>157</line>
+          <line>156</line>
           <option name="timeStamp" value="96" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/views.py</url>
-          <line>159</line>
+          <line>158</line>
           <option name="timeStamp" value="97" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/views.py</url>
-          <line>158</line>
+          <line>157</line>
           <option name="timeStamp" value="98" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/views.py</url>
-          <line>149</line>
+          <line>148</line>
           <option name="timeStamp" value="99" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/views.py</url>
-          <line>162</line>
+          <line>161</line>
           <option name="timeStamp" value="100" />
         </line-breakpoint>
       </breakpoints>

@@ -97,11 +97,10 @@ def insertproduct():
         m_abstract = request.form['m_abstract']
         m_category = request.form['m_category']
         is_active = request.form['is_active']
-        m_abstract.strip()
-        is_active.strip()
-        guid_tag = binascii.unhexlify(m_abstract)
-        isac = binascii.unhexlify(is_active)
-        my_data = ProductModel(m_code, m_name, m_short_name, m_parent_code, guid_tag, m_category, isac)
+
+        #guid_tag = binascii.unhexlify(m_abstract)
+        #isac = binascii.unhexlify(is_active)
+        my_data = ProductModel(m_code, m_name, m_short_name, m_parent_code, m_abstract, m_category, is_active)
         db.session.add(my_data)
         db.session.commit()
 
@@ -119,16 +118,16 @@ def updateproduct():
         m_category = request.form['m_category']
         is_active = request.form['is_active']
 
-        guid_tag = binascii.unhexlify(m_abstract)
-        isac = binascii.unhexlify(is_active)
+        #guid_tag = binascii.unhexlify(m_abstract)
+        #isac = binascii.unhexlify(is_active)
 
         my_data = db.session.query(ProductModel).get(m_code)
         my_data.m_name = request.form['m_name']
         my_data.m_short_name = request.form['m_short_name']
         my_data.m_parent_code = request.form['m_parent_code']
-        my_data.m_abstract = guid_tag
+        my_data.m_abstract = m_abstract
         my_data.m_category = request.form['m_category']
-        my_data.is_active = isac
+        my_data.is_active = is_active
 
         db.session.commit()
         return redirect(url_for('product'))
@@ -158,7 +157,7 @@ def insertorganization():
         org_District = request.form['org_District']
         parent_org = 0
         org_abstract = ''
-        isac = binascii.unhexlify(org_abstract)
+        isac = 1
         org_City = 0
         org_Type = 0
         myOrg = OrganizationsModel(org_name, parent_org, isac, org_Address, org_City, org_District, org_Type)
