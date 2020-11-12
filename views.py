@@ -138,6 +138,23 @@ def deleteproduct():
     num = request.form['m_syscode']
 
     my_data = db.session.query(ProductModel).get(num)
+
+
+    num = request.form['m_syscode']
+
+    my_data = db.session.query(ProductModel).get(num)
+    organizasyon = db.session.query(ProductModel).filter(ProductModel.m_parent_code == num)
+    for row in organizasyon:
+        newcode=row.m_syscode
+        organizasyon2 = db.session.query(ProductModel).filter(ProductModel.m_parent_code == str(newcode))
+        db.session.delete(row)
+        for row2 in organizasyon2:
+            a=row2.m_syscode
+            organizasyon3 = db.session.query(ProductModel).filter(ProductModel.m_parent_code == str(a))
+            db.session.delete(row2)
+            for row3 in organizasyon3:
+                row3.m_parent_code = 0
+
     db.session.delete(my_data)
     db.session.commit()
 
