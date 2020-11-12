@@ -321,6 +321,81 @@ def linkproductfeatures():
 
         return redirect(url_for('product_features'))
 
+@app.route('/organization')
+def organization():
+    all_data = db.session.query(OrganizationsModel).all()
+    return render_template('organization.html', feat=all_data)
+
+@app.route('/insertorganizationTable', methods=['POST'])
+def insertorganizationTable():
+    if request.method == 'POST':
+        org_name = request.form['org_name']
+        org_Address = request.form['org_Adress']
+        org_District = request.form['org_District']
+        parent_org = request.form['parent_org']
+        org_abstract = request.form['org_abstract']
+        org_City = request.form['org_City']
+        org_Type = request.form['org_Type']
+        myOrg = OrganizationsModel(org_name, parent_org, org_abstract, org_Address, org_City, org_District,
+                                   org_Type)
+        db.session.add(myOrg)
+        db.session.commit()
+    return redirect(url_for('organization'))
+
+@app.route('/deleteorganization', methods=['GET', 'POST'])
+def deleteorganization():
+    num = request.form['org_id']
+
+    my_data = db.session.query(OrganizationsModel).get(num)
+    organizasyon = db.session.query(OrganizationsModel).filter(OrganizationsModel.parent_org == num)
+    for row in organizasyon:
+        newcode=row.org_id
+        organizasyon2 = db.session.query(OrganizationsModel).filter(OrganizationsModel.parent_org == newcode)
+        #for i in organizasyon2:
+            #db.session.delete(i)
+       #db.session.delete(newcode)
+
+    db.session.delete(my_data)
+    db.session.commit()
+
+    return redirect(url_for('organization'))
+
+@app.route('/updateorganization', methods=['GET', 'POST'])
+def updateorganization():
+    if request.method == 'POST':
+        org_name = request.form['org_name']
+        org_Address = request.form['org_Adress']
+        org_District = request.form['org_District']
+        parent_org = request.form['parent_org']
+        org_abstract = request.form['org_abstract']
+        org_City = request.form['org_City']
+        org_Type = request.form['org_Type']
+        num = request.form['org_id']
+        my_data = db.session.query(OrganizationsModel).get(num)
+        my_data.org_name = request.form['org_name']
+        my_data.org_Adress = request.form['org_Adress']
+        my_data.org_District = request.form['org_District']
+        my_data.parent_org = request.form['parent_org']
+        my_data.org_abstract = request.form['org_abstract']
+        my_data.org_City = request.form['org_City']
+        my_data.org_Type = request.form['org_Type']
+        db.session.commit()
+
+    return redirect(url_for('organization'))
+
+@app.route('/safedeleteorganization', methods=['GET', 'POST'])
+def safedeleteorganization():
+    num = request.form['org_id']
+
+    my_data = db.session.query(OrganizationsModel).get(num)
+    newcode = my_data.parent_org
+    organizasyon = db.session.query(OrganizationsModel).filter(OrganizationsModel.parent_org == num)
+    for row in organizasyon:
+        row.parent_org = newcode
+    db.session.delete(my_data)
+    db.session.commit()
+
+    return redirect(url_for('organization'))
 
 if __name__ == '__main__':
     app.run()
