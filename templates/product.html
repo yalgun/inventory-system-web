@@ -39,9 +39,48 @@
                          <td>
                              <a href="/updateproduct/{{ row.m_syscode }}" class="btn btn-warning btn-xs" data-toggle="modal" data-target="#modaledit{{row.m_syscode}}">Edit</a>
                             <a href="/deleteproduct/{{ row.m_syscode }}" class="btn btn-danger btn-xs" data-toggle="modal" data-target="#modaldelete{{row.m_syscode}}" >Delete</a>
+                             <a href="/safedeleteproduct/{{ row.org_id }}" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#modalsafedelete{{row.m_syscode}}" >Safe Delete</a>
+
                          </td>
 
                      </tr>
+                        <div id="modalsafedelete{{row.m_syscode}}" class="modal fade" role="dialog">
+                            <div class="modal-dialog">
+                            <div class="modal-content">
+
+                                <div class="modal-header">
+
+
+                                    <h4 class="modal-title">Are You Sure To Safe Delete ? </h4>
+
+
+                                 </div>
+
+                                <div class="modal-body">
+                                    <form action="{{url_for('safedeleteproduct')}}" method="POST">
+                                        <div class="form-group">
+                                            <input type="hidden"  name="m_syscode" value="{{row.m_syscode}}">
+                                              </div>
+
+                                <div class="form-group">
+
+                                    <button class="btn btn-danger btn-xs" type="submit" >Delete</button>
+
+                                </div>
+                                    </form>
+                                </div>
+                                 <div class="modal-footer">
+
+
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+
+
+                                 </div>
+
+                            </div>
+                            </div>
+                            </div>
+
 
                          <div id="modaldelete{{row.m_syscode}}" class="modal fade" role="dialog">
                             <div class="modal-dialog">

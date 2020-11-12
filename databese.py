@@ -1,5 +1,7 @@
 from flask_sqlalchemy import SQLAlchemy
-from sqlalchemy import ForeignKey
+from sqlalchemy import ForeignKey, null
+from sqlalchemy.orm import relationship
+
 from app import db
 
 
@@ -113,6 +115,18 @@ class OrganizationsModel(db.Model):
         self.org_District = org_District
         self.org_Type = org_Type
 
+
+
+
+
+    def __init__(self, org_name, parent_org, org_abstract, org_Address, org_City, org_District, org_Type):
+        self.org_name = org_name
+        self.parent_org = parent_org
+        self.org_abstract = org_abstract
+        self.org_Address = org_Address
+        self.org_City = org_City
+        self.org_District = org_District
+        self.org_Type = org_Type
 
 class BrandsOrgsModel(db.Model):
     __tablename_ = 'brands'

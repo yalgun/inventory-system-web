@@ -336,6 +336,8 @@ def insertorganizationTable():
         org_abstract = request.form['org_abstract']
         org_City = request.form['org_City']
         org_Type = request.form['org_Type']
+        if (parent_org == ''):
+            parent_org = None
         myOrg = OrganizationsModel(org_name, parent_org, org_abstract, org_Address, org_City, org_District,
                                    org_Type)
         db.session.add(myOrg)
@@ -351,9 +353,15 @@ def deleteorganization():
     for row in organizasyon:
         newcode=row.org_id
         organizasyon2 = db.session.query(OrganizationsModel).filter(OrganizationsModel.parent_org == newcode)
-        #for i in organizasyon2:
-            #db.session.delete(i)
-       #db.session.delete(newcode)
+        db.session.delete(row)
+        for row2 in organizasyon2:
+            a=row2.org_id
+            organizasyon3 = db.session.query(OrganizationsModel).filter(OrganizationsModel.parent_org == a)
+            db.session.delete(row2)
+            for row3 in organizasyon3:
+                row3.parent_org = 0
+
+
 
     db.session.delete(my_data)
     db.session.commit()
@@ -396,6 +404,20 @@ def safedeleteorganization():
     db.session.commit()
 
     return redirect(url_for('organization'))
+
+@app.route('/safedeleteproduct', methods=['GET', 'POST'])
+def safedeleteproduct():
+    num = request.form['m_syscode']
+
+    my_data = db.session.query(ProductModel).get(num)
+    newcode = my_data.m_parent_code
+    pro = db.session.query(ProductModel).filter(ProductModel.m_parent_code == num)
+    for row in pro:
+        row.m_parent_code = newcode
+    db.session.delete(my_data)
+    db.session.commit()
+
+    return redirect(url_for('product'))
 
 if __name__ == '__main__':
     app.run()
