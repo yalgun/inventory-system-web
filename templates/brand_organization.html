@@ -1,0 +1,102 @@
+{% extends 'base.html' %}
+{% include 'header.html' %}
+
+{% block title %} Home {% endblock %}
+
+
+{% block body %}
+
+    <div class="container">
+        <div class="row">
+            <div class="col md-12">
+                <div class="jumbotron p-3">
+                    <h2>Manage <b>Brand/Organization </b>
+                        <button type="button" class="btn btn-success float-right"
+                                data-toggle="modal" data-target="#mymodal">Link Brands and Organizations
+                        </button>
+                    </h2>
+
+                    <table class="table table-hover table-dark">
+                        <tr>
+                            <th>Brand Code</th>
+                            <th>Brand Name</th>
+                            <th>Organization ID</th>
+                            <th>Organization Name</th>
+                        </tr>
+                        {% for row in feat %}
+                            <tr>
+                                <th>{{ row.brand_barcode }}</th>
+                                <th>{{ row.brand_name }}</th>
+                                <th>{{ row.org_id }}</th>
+                                <th>{{ row.org_name }}</th>
+                            </tr>
+                        {% endfor %}
+                    </table>
+                </div>
+
+            </div>
+            <div id="mymodal" class="modal fade" role="dialog">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title">Add New Manufacturer</h4>
+                        </div>
+
+                        <div class="modal-body">
+                            <form action="{{ url_for('linkbrandsorgs') }}" method="POST">
+                                <div class="form-group">
+                                    <label>Lot ID:</label>
+                                    <input type="text" class="form-control" name="lot_id" required="">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="Organization-select">Organization:</label>
+                                    <select id="Organization-select" name="Organization-select" required="">
+                                        {% for row in orgData %}
+                                            <option value={{ row.org_id }}>{{ row.org_name }} [ {{ row.org_id }} ] </option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="Brand-select">Brand:       </label>
+                                    <select id="Brand-select" name="Brand-select" required="">
+                                        Select Brand:
+                                        {% for row in brandData %}
+                                            <option value={{ row.brand_barcode }}>{{ row.brand_name }}
+                                                [ {{ row.brand_barcode }} ]
+                                            </option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+
+                                <div class="form-group">
+                                    <label>In Amount:</label>
+                                    <input type="text" class="form-control" name="in_amount" required="">
+                                </div>
+
+                                <div class="form-group">
+                                    <label>Out Amount:</label>
+                                    <input type="text" class="form-control" name="out_amount" required="">
+                                </div>
+
+                                <div class="form-group">
+                                    <button class="btn btn-primary" type="submit">Link</button>
+                                </div>
+
+                            </form>
+                        </div>
+
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+
+    </div>
+{% endblock %}

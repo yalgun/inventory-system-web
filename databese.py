@@ -129,6 +129,7 @@ class BrandsOrgsModel(db.Model):
         self.org_id = org_id
         self.brand_barcode = brand_barcode
         self.in_amount = in_amount
+        self.out_amount = out_amount
         self.total_amount = total_amount
 
 

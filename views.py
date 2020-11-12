@@ -3,7 +3,8 @@ from plistlib import Data
 from flask import render_template, request, url_for, flash
 from werkzeug.utils import redirect
 
-from databese import ProductModel, FeaturesModel, UserModel, OrganizationsModel, ManufacturersModel, ProductBrandsModel
+from databese import ProductModel, FeaturesModel, UserModel, OrganizationsModel, ManufacturersModel, ProductBrandsModel, \
+    BrandsOrgsModel, ProductFeaturesModel
 from app import app, db
 import binascii
 
@@ -51,6 +52,7 @@ def insertfeatures():
         db.session.add(myFeatures)
         db.session.commit()
         # Flash("New Feature is added")
+
     return redirect(url_for('features'))
 
 
@@ -81,6 +83,7 @@ def deletefeatures():
 @app.route('/product')
 def product():
     all_data = db.session.query(ProductModel).all()
+    print(all_data)
     return render_template('product.html', feat=all_data)
 
 
@@ -94,16 +97,11 @@ def insertproduct():
         m_abstract = request.form['m_abstract']
         m_category = request.form['m_category']
         is_active = request.form['is_active']
-
-        #m_abstract.strip()
-       # is_active.strip()
-        a=True
-        if m_abstract == 0:
-            a = False
-        b = True
-        #guid_tag = binascii.unhexlify(m_abstract)
-        #isac = binascii.unhexlify(is_active)
-        my_data = ProductModel(m_code, m_name, m_short_name, m_parent_code, m_abstract, m_category, is_active)
+        m_abstract.strip()
+        is_active.strip()
+        guid_tag = binascii.unhexlify(m_abstract)
+        isac = binascii.unhexlify(is_active)
+        my_data = ProductModel(m_code, m_name, m_short_name, m_parent_code, guid_tag, m_category, isac)
         db.session.add(my_data)
         db.session.commit()
 
@@ -121,16 +119,16 @@ def updateproduct():
         m_category = request.form['m_category']
         is_active = request.form['is_active']
 
-        #guid_tag = binascii.unhexlify(m_abstract)
-        #isac = binascii.unhexlify(is_active)
+        guid_tag = binascii.unhexlify(m_abstract)
+        isac = binascii.unhexlify(is_active)
 
         my_data = db.session.query(ProductModel).get(m_code)
         my_data.m_name = request.form['m_name']
         my_data.m_short_name = request.form['m_short_name']
         my_data.m_parent_code = request.form['m_parent_code']
-        my_data.m_abstract = request.form['m_abstract']
+        my_data.m_abstract = guid_tag
         my_data.m_category = request.form['m_category']
-        my_data.is_active = request.form['is_active']
+        my_data.is_active = isac
 
         db.session.commit()
         return redirect(url_for('product'))
@@ -159,10 +157,11 @@ def insertorganization():
         org_Address = request.form['org_Adress']
         org_District = request.form['org_District']
         parent_org = 0
-        org_abstract = 0
+        org_abstract = ''
+        isac = binascii.unhexlify(org_abstract)
         org_City = 0
         org_Type = 0
-        myOrg = OrganizationsModel(org_name, parent_org, org_abstract, org_Address, org_City, org_District, org_Type)
+        myOrg = OrganizationsModel(org_name, parent_org, isac, org_Address, org_City, org_District, org_Type)
         db.session.add(myOrg)
         db.session.commit()
         person_name = request.form['person_name']
@@ -274,72 +273,55 @@ def deleteproductbrands():
 
     return redirect(url_for('productbrands'))
 
-@app.route('/organization')
-def organization():
-    all_data = db.session.query(OrganizationsModel).all()
-    return render_template('organization.html', feat=all_data)
 
-@app.route('/insertorganizationTable', methods=['POST'])
-def insertorganizationTable():
+@app.route('/brand_organization')
+def brandOrganization():
+    data = db.session.query(OrganizationsModel.org_name, OrganizationsModel.org_id, BrandsOrgsModel,
+                            ProductBrandsModel.brand_barcode, ProductBrandsModel.brand_name).filter(
+        OrganizationsModel.org_id == BrandsOrgsModel.org_id and ProductBrandsModel.brand_barcode == BrandsOrgsModel.brand_barcode).all()
+    organizationData = db.session.query(OrganizationsModel)
+    brandData = db.session.query(ProductBrandsModel)
+    return render_template('brand_organization.html', feat=data, orgData=organizationData, brandData=brandData)
+
+
+@app.route('/linkbrandsorgs', methods=['POST'])
+def linkbrandsorgs():
     if request.method == 'POST':
-        org_name = request.form['org_name']
-        org_Address = request.form['org_Adress']
-        org_District = request.form['org_District']
-        parent_org = request.form['parent_org']
-        org_abstract = request.form['org_abstract']
-        org_City = request.form['org_City']
-        org_Type = request.form['org_Type']
-        myOrg = OrganizationsModel(org_name, parent_org, org_abstract, org_Address, org_City, org_District, org_Type)
-        db.session.add(myOrg)
-        db.session.commit()
-    return redirect(url_for('organization'))
-
-
-@app.route('/deleteorganization', methods=['GET', 'POST'])
-def deleteorganization():
-    num = request.form['org_id']
-
-    my_data = db.session.query(OrganizationsModel).get(num)
-    db.session.delete(my_data)
-    db.session.commit()
-
-    return redirect(url_for('organization'))
-
-@app.route('/updateorganization', methods=['GET', 'POST'])
-def updateorganization():
-    if request.method == 'POST':
-        org_name = request.form['org_name']
-        org_Address = request.form['org_Adress']
-        org_District = request.form['org_District']
-        parent_org = request.form['parent_org']
-        org_abstract = request.form['org_abstract']
-        org_City = request.form['org_City']
-        org_Type = request.form['org_Type']
-        num=request.form['org_id']
-        my_data = db.session.query(OrganizationsModel).get(num)
-        my_data.org_name = request.form['org_name']
-        my_data.org_Adress = request.form['org_Adress']
-        my_data.org_District = request.form['org_District']
-        my_data.parent_org = request.form['parent_org']
-        my_data.org_abstract = request.form['org_abstract']
-        my_data.org_City = request.form['org_City']
-        my_data.org_Type = request.form['org_Type']
+        lot_id = request.form['lot_id']
+        brand_barcode = request.form['Brand-select']
+        org_id = request.form['Organization-select']
+        in_amount = request.form['in_amount']
+        out_amount = request.form['out_amount']
+        my_data = BrandsOrgsModel(lot_id, org_id, brand_barcode, in_amount, out_amount, in_amount + out_amount)
+        db.session.add(my_data)
         db.session.commit()
 
-    return redirect(url_for('organization'))
+        return redirect(url_for('productbrands'))
 
-@app.route('/safedeleteorganization', methods=['GET', 'POST'])
-def safedeleteorganization():
-    num = request.form['org_id']
 
-    my_data = db.session.query(OrganizationsModel).get(num)
-    newcode = my_data.parent_org
-    organizasyon = db.session.query(OrganizationsModel).filter(OrganizationsModel.parent_org == num)
-    for row in organizasyon:
-        row.parent_org = newcode
-    db.session.delete(my_data)
-    db.session.commit()
+@app.route('/product_features')
+def product_features():
+    data = db.session.query(ProductModel.m_syscode, ProductModel.m_code, ProductModel.m_name, ProductFeaturesModel,
+                            FeaturesModel.feature_id, FeaturesModel.feature_name).filter(
+        ProductModel.m_syscode == ProductFeaturesModel.m_syscode and FeaturesModel.feature_id == ProductFeaturesModel.id
+    ).all()
+    productData = db.session.query(ProductModel)
+    featuresData = db.session.query(FeaturesModel)
+    return render_template('product_features.html', feat=data, productData=productData, featuresData=featuresData)
 
-    return redirect(url_for('organization'))
+
+@app.route('/linkproductfeatures', methods=['POST'])
+def linkproductfeatures():
+    if request.method == 'POST':
+        m_syscode = request.form['Product M_Syscode-Select']
+        feature_id = request.form['Feature ID-select']
+        minval = request.form['minval']
+        my_data = ProductFeaturesModel(m_syscode, feature_id, minval)
+        db.session.add(my_data)
+        db.session.commit()
+
+        return redirect(url_for('product_features'))
+
+
 if __name__ == '__main__':
     app.run()
