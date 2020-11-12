@@ -279,7 +279,7 @@ def brandOrganization():
     data = db.session.query(OrganizationsModel.org_name, OrganizationsModel.org_id, BrandsOrgsModel,
                             ProductBrandsModel.brand_barcode, ProductBrandsModel.brand_name).filter(
         OrganizationsModel.org_id == BrandsOrgsModel.org_id and ProductBrandsModel.brand_barcode == BrandsOrgsModel.brand_barcode).all()
-    organizationData = db.session.query(OrganizationsModel);
+    organizationData = db.session.query(OrganizationsModel)
     brandData = db.session.query(ProductBrandsModel)
     return render_template('brand_organization.html', feat=data, orgData=organizationData, brandData=brandData)
 
@@ -305,7 +305,22 @@ def product_features():
                             FeaturesModel.feature_id, FeaturesModel.feature_name).filter(
         ProductModel.m_syscode == ProductFeaturesModel.m_syscode and FeaturesModel.feature_id == ProductFeaturesModel.id
     ).all()
-    return render_template('product_features.html', feat=data)
+    productData = db.session.query(ProductModel)
+    featuresData = db.session.query(FeaturesModel)
+    return render_template('product_features.html', feat=data, productData=productData, featuresData=featuresData)
+
+
+@app.route('/linkproductfeatures', methods=['POST'])
+def linkproductfeatures():
+    if request.method == 'POST':
+        m_syscode = request.form['Product M_Syscode-Select']
+        feature_id = request.form['Feature ID-select']
+        minval = request.form['minval']
+        my_data = ProductFeaturesModel(m_syscode, feature_id, minval)
+        db.session.add(my_data)
+        db.session.commit()
+
+        return redirect(url_for('product_features'))
 
 
 if __name__ == '__main__':
