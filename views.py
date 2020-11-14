@@ -4,7 +4,7 @@ from flask import render_template, request, url_for, flash
 from werkzeug.utils import redirect
 
 from databese import ProductModel, FeaturesModel, UserModel, OrganizationsModel, ManufacturersModel, ProductBrandsModel, \
-    BrandsOrgsModel, ProductFeaturesModel
+    BrandsOrgsModel, ProductFeaturesModel, AlternativeBrandsModel, FlowModel
 from app import app, db
 import binascii
 
@@ -83,7 +83,6 @@ def deletefeatures():
 @app.route('/product')
 def product():
     all_data = db.session.query(ProductModel).all()
-    print(all_data)
     return render_template('product.html', feat=all_data)
 
 
@@ -98,8 +97,8 @@ def insertproduct():
         m_category = request.form['m_category']
         is_active = request.form['is_active']
 
-        #guid_tag = binascii.unhexlify(m_abstract)
-        #isac = binascii.unhexlify(is_active)
+        # guid_tag = binascii.unhexlify(m_abstract)
+        # isac = binascii.unhexlify(is_active)
         my_data = ProductModel(m_code, m_name, m_short_name, m_parent_code, m_abstract, m_category, is_active)
         db.session.add(my_data)
         db.session.commit()
@@ -118,8 +117,8 @@ def updateproduct():
         m_category = request.form['m_category']
         is_active = request.form['is_active']
 
-        #guid_tag = binascii.unhexlify(m_abstract)
-        #isac = binascii.unhexlify(is_active)
+        # guid_tag = binascii.unhexlify(m_abstract)
+        # isac = binascii.unhexlify(is_active)
 
         my_data = db.session.query(ProductModel).get(m_code)
         my_data.m_name = request.form['m_name']
@@ -139,17 +138,16 @@ def deleteproduct():
 
     my_data = db.session.query(ProductModel).get(num)
 
-
     num = request.form['m_syscode']
 
     my_data = db.session.query(ProductModel).get(num)
     organizasyon = db.session.query(ProductModel).filter(ProductModel.m_parent_code == num)
     for row in organizasyon:
-        newcode=row.m_syscode
+        newcode = row.m_syscode
         organizasyon2 = db.session.query(ProductModel).filter(ProductModel.m_parent_code == str(newcode))
         db.session.delete(row)
         for row2 in organizasyon2:
-            a=row2.m_syscode
+            a = row2.m_syscode
             organizasyon3 = db.session.query(ProductModel).filter(ProductModel.m_parent_code == str(a))
             db.session.delete(row2)
             for row3 in organizasyon3:
@@ -312,7 +310,72 @@ def linkbrandsorgs():
         db.session.add(my_data)
         db.session.commit()
 
-        return redirect(url_for('productbrands'))
+        return redirect(url_for('brandOrganization'))
+
+
+@app.route('/brand_alternativebrand')
+def BrandAlternativeBrand():
+    data = db.session.query(AlternativeBrandsModel.alternative_brand_code, ProductBrandsModel.brand_name,
+                            ProductBrandsModel.brand_barcode).filter(
+        AlternativeBrandsModel.brand_barcode == ProductBrandsModel.brand_barcode).all()
+
+    altBrandsData = db.session.query(AlternativeBrandsModel.alternative_brand_code, ProductBrandsModel.brand_name,
+                                     ProductBrandsModel.brand_barcode).filter(
+        AlternativeBrandsModel.alternative_brand_code == ProductBrandsModel.brand_barcode)
+    BrandData = db.session.query(ProductBrandsModel).all()
+
+    return render_template('brand-alternativebrand.html', feat=data, altFeat=altBrandsData, brand=BrandData)
+
+
+@app.route('/link_alternative_brands', methods=['POST'])
+def link_alternative_brands():
+    if request.method == 'POST':
+        brand_barcode = request.form['Brand-select']
+        alternative_brand_barcode = request.form['Alternative-Brand-select']
+        m_syscode = request.form['m_syscode']
+        alternative_m_syscode = request.form['alternative-m_syscode']
+        my_data = AlternativeBrandsModel(brand_barcode, alternative_brand_barcode, m_syscode, alternative_m_syscode)
+        db.session.add(my_data)
+        db.session.commit()
+
+        return redirect(url_for('BrandAlternativeBrand'))
+
+
+@app.route('/flow')
+def flow():
+    source = db.session.query(FlowModel.source_lot_id, OrganizationsModel.org_id, OrganizationsModel.org_name).filter(
+        FlowModel.source_org_id == OrganizationsModel.org_id).all()
+    print(source)
+    print('*****')
+    target = db.session.query(FlowModel.target_lot_id, FlowModel.target_org_id, FlowModel.brand_brandcode,
+                              OrganizationsModel.org_id,
+                              OrganizationsModel.org_name).filter(
+        FlowModel.target_org_id == OrganizationsModel.org_id).all()
+    print(target)
+    brand = db.session.query(ProductBrandsModel.brand_barcode, ProductBrandsModel.brand_name).all()
+    orgs = db.session.query(OrganizationsModel.org_id, OrganizationsModel.org_name).all()
+    brOrg = db.session.query(BrandsOrgsModel.lot_id, BrandsOrgsModel.brand_barcode).all()
+
+    return render_template('flow.html', source=source, target=target, brand=brand, orgs=orgs, brOrg=brOrg)
+
+
+@app.route('/flowBrand', methods=['GET', 'POST'])
+def flowBrand():
+    BrandBarcode = request.form['Brand-select']
+    SourceOrgID = request.form['Organization-select']
+    TargetOrgID = request.form['Target-Organization-select']
+    SourceLotID = request.form['Source-lot-select']
+    TargetLotID = request.form['target-lot-id']
+    flowMd = FlowModel(SourceLotID, SourceOrgID, TargetLotID, TargetOrgID, BrandBarcode)
+    db.session.add(flowMd)
+    db.session.commit()
+
+    my_data = db.session.query(BrandsOrgsModel).get({'lot_id': SourceLotID, 'org_id': SourceOrgID, 'brand_barcode':BrandBarcode})
+    my_data.lot_id = TargetLotID
+    my_data.org_id = TargetOrgID
+    db.session.commit()
+
+    return redirect(url_for('flow'))
 
 
 @app.route('/product_features')
@@ -338,10 +401,12 @@ def linkproductfeatures():
 
         return redirect(url_for('product_features'))
 
+
 @app.route('/organization')
 def organization():
     all_data = db.session.query(OrganizationsModel).all()
     return render_template('organization.html', feat=all_data)
+
 
 @app.route('/insertorganizationTable', methods=['POST'])
 def insertorganizationTable():
@@ -361,6 +426,7 @@ def insertorganizationTable():
         db.session.commit()
     return redirect(url_for('organization'))
 
+
 @app.route('/deleteorganization', methods=['GET', 'POST'])
 def deleteorganization():
     num = request.form['org_id']
@@ -368,22 +434,21 @@ def deleteorganization():
     my_data = db.session.query(OrganizationsModel).get(num)
     organizasyon = db.session.query(OrganizationsModel).filter(OrganizationsModel.parent_org == num)
     for row in organizasyon:
-        newcode=row.org_id
+        newcode = row.org_id
         organizasyon2 = db.session.query(OrganizationsModel).filter(OrganizationsModel.parent_org == newcode)
         db.session.delete(row)
         for row2 in organizasyon2:
-            a=row2.org_id
+            a = row2.org_id
             organizasyon3 = db.session.query(OrganizationsModel).filter(OrganizationsModel.parent_org == a)
             db.session.delete(row2)
             for row3 in organizasyon3:
                 row3.parent_org = 0
 
-
-
     db.session.delete(my_data)
     db.session.commit()
 
     return redirect(url_for('organization'))
+
 
 @app.route('/updateorganization', methods=['GET', 'POST'])
 def updateorganization():
@@ -408,6 +473,7 @@ def updateorganization():
 
     return redirect(url_for('organization'))
 
+
 @app.route('/safedeleteorganization', methods=['GET', 'POST'])
 def safedeleteorganization():
     num = request.form['org_id']
@@ -422,6 +488,7 @@ def safedeleteorganization():
 
     return redirect(url_for('organization'))
 
+
 @app.route('/safedeleteproduct', methods=['GET', 'POST'])
 def safedeleteproduct():
     num = request.form['m_syscode']
@@ -435,6 +502,7 @@ def safedeleteproduct():
     db.session.commit()
 
     return redirect(url_for('product'))
+
 
 if __name__ == '__main__':
     app.run()

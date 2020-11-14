@@ -119,14 +119,15 @@ class OrganizationsModel(db.Model):
 
 
 
-    def __init__(self, org_name, parent_org, org_abstract, org_Address, org_City, org_District, org_Type):
-        self.org_name = org_name
-        self.parent_org = parent_org
-        self.org_abstract = org_abstract
-        self.org_Address = org_Address
-        self.org_City = org_City
-        self.org_District = org_District
-        self.org_Type = org_Type
+def __init__(self, org_name, parent_org, org_abstract, org_Address, org_City, org_District, org_Type):
+    self.org_name = org_name
+    self.parent_org = parent_org
+    self.org_abstract = org_abstract
+    self.org_Address = org_Address
+    self.org_City = org_City
+    self.org_District = org_District
+    self.org_Type = org_Type
+
 
 class BrandsOrgsModel(db.Model):
     __tablename_ = 'brands'
@@ -154,7 +155,7 @@ class FlowModel(db.Model):
     source_org_id = db.Column(db.Integer, primary_key=True)
     target_lot_id = db.Column(db.Integer, primary_key=True)
     target_org_id = db.Column(db.Integer, primary_key=True)
-    brand_brandcode = db.Column(db.Integer, primary_key=True)  # Brand barcodları ekleyemiyorum !!!!!!!!!!!!!!!!!!!!
+    brand_brandcode = db.Column(db.String(13), primary_key=True)  # Brand barcodları ekleyemiyorum !!!!!!!!!!!!!!!!!!!!
 
     def __init__(self, source_lot_id, source_org_id, target_lot_id, target_org_id, brand_brandcode):
         self.source_lot_id = source_lot_id
@@ -167,12 +168,16 @@ class FlowModel(db.Model):
 class AlternativeBrandsModel(db.Model):
     __tablename__ = 'alternative-brands'
 
-    brand_barcode = db.Column(db.Integer, primary_key=True)
-    alternative_brand_code = db.Column(db.Integer, primary_key=True)
+    brand_barcode = db.Column(db.String(13), primary_key=True)
+    m_syscode = db.Column(db.Integer, primary_key=True)
+    alternative_brand_code = db.Column(db.String(13), primary_key=True)
+    alternative_m_syscode = db.Column(db.Integer, primary_key=True)
 
-    def __init__(self, brand_barcode, alternative_brand_code):
+    def __init__(self, brand_barcode, alternative_brand_code, m_syscode, alternative_m_syscode):
         self.brand_barcode = brand_barcode
         self.alternative_brand_code = alternative_brand_code
+        self.m_syscode = m_syscode
+        self.alternative_m_syscode = alternative_m_syscode
 
 
 class CountryModel(db.Model):

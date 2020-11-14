@@ -19,8 +19,14 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="dc23949f-e782-480d-b5e7-c7fbc02e6189" name="Default Changelist" comment="safe delete of product">
+    <list default="true" id="dc23949f-e782-480d-b5e7-c7fbc02e6189" name="Default Changelist" comment="Brand/Alternative Brand form done.">
+      <change afterPath="$PROJECT_DIR$/templates/brand-alternativebrand.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/flow.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/trade-track-task.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/trade-track-task.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/databese.py" beforeDir="false" afterPath="$PROJECT_DIR$/databese.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/header.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/header.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/views.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -98,7 +104,7 @@
       </list>
     </recent_temporary>
   </component>
-  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="SpellCheckerSettings" BundledDictionaries="0" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" Dictionaries="0" CorrectionsLimit="5" DefaultDictionary="application-level" UseSingleDictionary="true" />
   <component name="SvnConfiguration">
     <configuration />
   </component>
@@ -112,6 +118,8 @@
       <workItem from="1602285070732" duration="437000" />
       <workItem from="1602326083929" duration="159000" />
       <workItem from="1605099020259" duration="6948000" />
+      <workItem from="1605274276664" duration="10904000" />
+      <workItem from="1605360370425" duration="929000" />
     </task>
     <task id="LOCAL-00001" summary="Create Read Update Feature is done&#10;Read Product is done&#10;html of Login Page  is done">
       <created>1604844378522</created>
@@ -166,12 +174,13 @@
       <map>
         <entry key="MAIN">
           <value>
-            <State />
+            <State>
+              <option name="COLUMN_ORDER" />
+            </State>
           </value>
         </entry>
       </map>
     </option>
-    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Create Read Update Feature is done&#10;Read Product is done&#10;html of Login Page  is done" />
@@ -183,6 +192,10 @@
     <option name="LAST_COMMIT_MESSAGE" value="safe delete of product" />
   </component>
   <component name="WindowStateProjectService">
+    <state x="392" y="7" key="CommitChangelistDialog2" timestamp="1605360536576">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="392" y="7" key="CommitChangelistDialog2/0.0.1536.824@0.0.1536.824" timestamp="1605360536576" />
     <state width="1515" height="247" key="GridCell.Tab.0.bottom" timestamp="1605214880988">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
@@ -223,10 +236,10 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="481" y="128" key="MultipleFileMergeDialog/0.0.1536.824@0.0.1536.824" timestamp="1605124942960" />
-    <state x="277" y="57" key="SettingsEditor" timestamp="1605205889633">
+    <state x="277" y="57" key="SettingsEditor" timestamp="1605274911131">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="277" y="57" key="SettingsEditor/0.0.1536.824@0.0.1536.824" timestamp="1605205889633" />
+    <state x="277" y="57" key="SettingsEditor/0.0.1536.824@0.0.1536.824" timestamp="1605274911131" />
     <state x="361" y="145" key="Vcs.Push.Dialog.v2" timestamp="1605214548171">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
@@ -235,14 +248,14 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="93" y="93" width="1350" height="638" key="com.intellij.history.integration.ui.views.FileHistoryDialog/0.0.1536.824@0.0.1536.824" timestamp="1605024021268" />
-    <state x="465" y="236" key="com.intellij.ide.util.TipDialog" timestamp="1605099044814">
+    <state x="465" y="236" key="com.intellij.ide.util.TipDialog" timestamp="1605360477895">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="465" y="236" key="com.intellij.ide.util.TipDialog/0.0.1536.824@0.0.1536.824" timestamp="1605099044814" />
-    <state x="578" y="329" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1605207132170">
+    <state x="465" y="236" key="com.intellij.ide.util.TipDialog/0.0.1536.824@0.0.1536.824" timestamp="1605360477895" />
+    <state x="578" y="329" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1605275107427">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="578" y="329" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1536.824@0.0.1536.824" timestamp="1605207132170" />
+    <state x="578" y="329" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1536.824@0.0.1536.824" timestamp="1605275107427" />
     <state x="431" y="145" width="672" height="678" key="search.everywhere.popup" timestamp="1605042775239">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
@@ -263,27 +276,27 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/views.py</url>
-          <line>165</line>
+          <line>164</line>
           <option name="timeStamp" value="99" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/views.py</url>
-          <line>147</line>
+          <line>146</line>
           <option name="timeStamp" value="113" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/views.py</url>
-          <line>149</line>
+          <line>148</line>
           <option name="timeStamp" value="114" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/views.py</url>
-          <line>154</line>
+          <line>153</line>
           <option name="timeStamp" value="115" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/views.py</url>
-          <line>151</line>
+          <line>150</line>
           <option name="timeStamp" value="116" />
         </line-breakpoint>
       </breakpoints>
