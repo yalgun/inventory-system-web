@@ -1,0 +1,149 @@
+{% extends 'base.html' %}
+{% include 'header.html' %}
+
+{% block title %} Home {% endblock %}
+
+
+{% block body %}
+
+    <div class="container">
+        <div class="row">
+            <div class="col md-12">
+                <div class="jumbotron p-3">
+                    <h2>Flow <b>Brands </b>
+                        <button type="button" class="btn btn-success float-right"
+                                data-toggle="modal" data-target="#mymodal">New Flow
+                        </button>
+                    </h2>
+
+                    <table id="main-table" class="table table-hover table-dark">
+                        <tr>
+                            <th>Source Lot ID</th>
+                            <th>Source Org. ID</th>
+                            <th>Source Org. Name</th>
+                            <th>Target Lot ID</th>
+                            <th>Target Org. ID</th>
+                            <th>Target Org. Name</th>
+                            <th>Brand Barcode</th>
+                        </tr>
+                        {% for row in source %}
+                            <tr class="main-table-row">
+                                <th>{{ row.source_lot_id }}</th>
+                                <th>{{ row.org_id }}</th>
+                                <th>{{ row.org_name }}</th>
+                            </tr>
+                        {% endfor %}
+                        {% for row in target %}
+                            <tr class="side-table-row">
+                                <th>{{ row.target_lot_id }}</th>
+                                <th>{{ row.org_id }}</th>
+                                <th>{{ row.org_name }}</th>
+                                <th>{{ row.brand_brandcode }}</th>
+                            </tr>
+                        {% endfor %}
+                    </table>
+                </div>
+                <div id="mymodal" class="modal fade" role="dialog">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h4 class="modal-title">Flow Brand</h4>
+                            </div>
+
+                            <div class="modal-body">
+                                <form action="{{ url_for('flowBrand') }}" method="POST">
+
+                                    <div class="form-group">
+                                        <label for="Brand-select">Brand: </label>
+                                        <select id="Brand-select" name="Brand-select" required="">
+                                            Select Brand:
+                                            {% for row in brand %}
+                                                <option value={{ row.brand_barcode }}>{{ row.brand_name }}
+                                                    [ {{ row.brand_barcode }} ]
+                                                </option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="Organization-select">Source Organization:</label>
+                                        <select id="Organization-select" name="Organization-select" required="">
+                                            {% for row in orgs %}
+                                                <option value={{ row.org_id }}>{{ row.org_name }} [ {{ row.org_id }} ]
+                                                </option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="Target-Organization-select">Target Organization:</label>
+                                        <select id="Target-Organization-select" name="Target-Organization-select"
+                                                required="">
+                                            {% for row in orgs %}
+                                                <option value={{ row.org_id }}>{{ row.org_name }} [ {{ row.org_id }} ]
+                                                </option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="Source-lot-select">Source Lot ID: </label>
+                                        <select id="Source-lot-select" name="Source-lot-select" required="">
+                                            Select Alternative Brand:
+                                            {% for row in brOrg %}
+                                                <option value={{ row.lot_id }}>{{ row.lot_id }}
+                                                    [ {{ row.brand_barcode }} ]
+                                                </option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label>Target Lot ID:</label>
+                                        <input type="text" class="form-control" name="target-lot-id" required="">
+                                    </div>
+
+                                    <div class="form-group">
+
+                                        <button class="btn btn-primary" type="submit">Create</button>
+
+                                    </div>
+                                </form>
+                            </div>
+
+
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+        let mainTable = document.getElementsByClassName("main-table-row");
+        let sideTable = document.getElementsByClassName("side-table-row");
+
+        for (let i = 0; i < mainTable.length; i++) {
+            mainTable[i].innerHTML = mainTable[i].innerHTML + sideTable[i].innerHTML;
+        }
+        lngth = sideTable.length;
+        for (let i = 0; i < sideTable.length; i++) {
+            console.log(i);
+            sideTable[i].parentNode.removeChild(sideTable[i]);
+        }
+        let table = document.getElementById("main-table");
+        let trElement = table.getElementsByTagName("tr");
+        console.log(trElement[trElement.length - 1]);
+        if (lngth > 1) {
+            table.getElementsByTagName("tbody")[0].removeChild(trElement[trElement.length - 1]);
+        }
+
+    </script>
+
+
+{% endblock %}

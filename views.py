@@ -345,13 +345,10 @@ def link_alternative_brands():
 def flow():
     source = db.session.query(FlowModel.source_lot_id, OrganizationsModel.org_id, OrganizationsModel.org_name).filter(
         FlowModel.source_org_id == OrganizationsModel.org_id).all()
-    print(source)
-    print('*****')
     target = db.session.query(FlowModel.target_lot_id, FlowModel.target_org_id, FlowModel.brand_brandcode,
                               OrganizationsModel.org_id,
                               OrganizationsModel.org_name).filter(
         FlowModel.target_org_id == OrganizationsModel.org_id).all()
-    print(target)
     brand = db.session.query(ProductBrandsModel.brand_barcode, ProductBrandsModel.brand_name).all()
     orgs = db.session.query(OrganizationsModel.org_id, OrganizationsModel.org_name).all()
     brOrg = db.session.query(BrandsOrgsModel.lot_id, BrandsOrgsModel.brand_barcode).all()
