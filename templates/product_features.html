@@ -33,7 +33,6 @@
                         {% endfor %}
                     </table>
                 </div>
-
             </div>
             <div id="mymodal" class="modal fade" role="dialog">
                 <div class="modal-dialog">
@@ -58,8 +57,7 @@
                                     <label for="Feature ID-select">Feature ID:       </label>
                                     <select id="Feature ID-select" name="Feature ID-select" required="">
                                         {% for row in featuresData %}
-                                            <option value={{ row.feature_id }}>{{ row.feature_id }}
-                                                [ {{ row.feature_id }} ]
+                                            <option value={{ row.feature_id }}>{{ row.feature_id }} [ {{ row.feature_id }} ]
                                             </option>
                                         {% endfor %}
                                     </select>

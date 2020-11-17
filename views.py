@@ -379,8 +379,7 @@ def flowBrand():
 def product_features():
     data = db.session.query(ProductModel.m_syscode, ProductModel.m_code, ProductModel.m_name, ProductFeaturesModel,
                             FeaturesModel.feature_id, FeaturesModel.feature_name).filter(
-        ProductModel.m_syscode == ProductFeaturesModel.m_syscode and FeaturesModel.feature_id == ProductFeaturesModel.id
-    ).all()
+        ProductModel.m_syscode == ProductFeaturesModel.m_syscode).filter(FeaturesModel.feature_id == ProductFeaturesModel.feature_id).all()
     productData = db.session.query(ProductModel)
     featuresData = db.session.query(FeaturesModel)
     return render_template('product_features.html', feat=data, productData=productData, featuresData=featuresData)
@@ -397,7 +396,6 @@ def linkproductfeatures():
         db.session.commit()
 
         return redirect(url_for('product_features'))
-
 
 @app.route('/organization')
 def organization():
