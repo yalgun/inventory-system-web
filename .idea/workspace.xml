@@ -19,8 +19,7 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="dc23949f-e782-480d-b5e7-c7fbc02e6189" name="Default Changelist" comment="Brand/Alternative Brand form done.">
-      <change afterPath="$PROJECT_DIR$/templates/flow.html" afterDir="false" />
+    <list default="true" id="dc23949f-e782-480d-b5e7-c7fbc02e6189" name="Default Changelist" comment="Flow Brand form done.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/views.py" afterDir="false" />
     </list>
@@ -114,7 +113,8 @@
       <workItem from="1602326083929" duration="159000" />
       <workItem from="1605099020259" duration="6948000" />
       <workItem from="1605274276664" duration="10904000" />
-      <workItem from="1605360370425" duration="2641000" />
+      <workItem from="1605360370425" duration="3911000" />
+      <workItem from="1605610365900" duration="6072000" />
     </task>
     <task id="LOCAL-00001" summary="Create Read Update Feature is done&#10;Read Product is done&#10;html of Login Page  is done">
       <created>1604844378522</created>
@@ -165,7 +165,14 @@
       <option name="project" value="LOCAL" />
       <updated>1605362693679</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="Flow Brand form done.">
+      <created>1605367104738</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1605367104738</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -192,17 +199,18 @@
     <MESSAGE value="update" />
     <MESSAGE value="safe delete of product" />
     <MESSAGE value="Brand/Alternative Brand form done." />
-    <option name="LAST_COMMIT_MESSAGE" value="Brand/Alternative Brand form done." />
+    <MESSAGE value="Flow Brand form done." />
+    <option name="LAST_COMMIT_MESSAGE" value="Flow Brand form done." />
   </component>
   <component name="WindowStateProjectService">
-    <state x="392" y="7" key="CommitChangelistDialog2" timestamp="1605362692587">
+    <state x="392" y="7" key="CommitChangelistDialog2" timestamp="1605616817772">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="392" y="7" key="CommitChangelistDialog2/0.0.1536.824@0.0.1536.824" timestamp="1605362692587" />
-    <state x="147" y="65" key="DiffContextDialog" timestamp="1605362682840">
+    <state x="392" y="7" key="CommitChangelistDialog2/0.0.1536.824@0.0.1536.824" timestamp="1605616817772" />
+    <state x="147" y="65" width="1228" height="687" key="DiffContextDialog" timestamp="1605616846263">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="147" y="65" key="DiffContextDialog/0.0.1536.824@0.0.1536.824" timestamp="1605362682840" />
+    <state x="147" y="65" width="1228" height="687" key="DiffContextDialog/0.0.1536.824@0.0.1536.824" timestamp="1605616846263" />
     <state width="1515" height="247" key="GridCell.Tab.0.bottom" timestamp="1605214880988">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
@@ -243,26 +251,26 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="481" y="128" key="MultipleFileMergeDialog/0.0.1536.824@0.0.1536.824" timestamp="1605124942960" />
-    <state x="277" y="57" key="SettingsEditor" timestamp="1605274911131">
+    <state x="277" y="57" key="SettingsEditor" timestamp="1605616809651">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="277" y="57" key="SettingsEditor/0.0.1536.824@0.0.1536.824" timestamp="1605274911131" />
-    <state x="361" y="145" key="Vcs.Push.Dialog.v2" timestamp="1605362826443">
+    <state x="277" y="57" key="SettingsEditor/0.0.1536.824@0.0.1536.824" timestamp="1605616809651" />
+    <state x="361" y="145" key="Vcs.Push.Dialog.v2" timestamp="1605367163486">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="361" y="145" key="Vcs.Push.Dialog.v2/0.0.1536.824@0.0.1536.824" timestamp="1605362826443" />
+    <state x="361" y="145" key="Vcs.Push.Dialog.v2/0.0.1536.824@0.0.1536.824" timestamp="1605367163486" />
     <state x="93" y="93" width="1350" height="638" key="com.intellij.history.integration.ui.views.FileHistoryDialog" timestamp="1605024021268">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="93" y="93" width="1350" height="638" key="com.intellij.history.integration.ui.views.FileHistoryDialog/0.0.1536.824@0.0.1536.824" timestamp="1605024021268" />
-    <state x="465" y="236" key="com.intellij.ide.util.TipDialog" timestamp="1605360477895">
+    <state x="465" y="236" key="com.intellij.ide.util.TipDialog" timestamp="1605610384132">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="465" y="236" key="com.intellij.ide.util.TipDialog/0.0.1536.824@0.0.1536.824" timestamp="1605360477895" />
-    <state x="578" y="329" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1605275107427">
+    <state x="465" y="236" key="com.intellij.ide.util.TipDialog/0.0.1536.824@0.0.1536.824" timestamp="1605610384132" />
+    <state x="578" y="329" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1605616822085">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="578" y="329" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1536.824@0.0.1536.824" timestamp="1605275107427" />
+    <state x="578" y="329" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1536.824@0.0.1536.824" timestamp="1605616822085" />
     <state x="431" y="145" width="672" height="678" key="search.everywhere.popup" timestamp="1605042775239">
       <screen x="0" y="0" width="1536" height="824" />
     </state>

@@ -292,7 +292,8 @@ def deleteproductbrands():
 def brandOrganization():
     data = db.session.query(OrganizationsModel.org_name, OrganizationsModel.org_id, BrandsOrgsModel,
                             ProductBrandsModel.brand_barcode, ProductBrandsModel.brand_name).filter(
-        OrganizationsModel.org_id == BrandsOrgsModel.org_id and ProductBrandsModel.brand_barcode == BrandsOrgsModel.brand_barcode).all()
+        OrganizationsModel.org_id == BrandsOrgsModel.org_id).filter(
+        ProductBrandsModel.brand_barcode == BrandsOrgsModel.brand_barcode).all()
     organizationData = db.session.query(OrganizationsModel)
     brandData = db.session.query(ProductBrandsModel)
     return render_template('brand_organization.html', feat=data, orgData=organizationData, brandData=brandData)
@@ -306,7 +307,8 @@ def linkbrandsorgs():
         org_id = request.form['Organization-select']
         in_amount = request.form['in_amount']
         out_amount = request.form['out_amount']
-        my_data = BrandsOrgsModel(lot_id, org_id, brand_barcode, in_amount, out_amount, in_amount + out_amount)
+        totalamount = int(in_amount) + int(out_amount)
+        my_data = BrandsOrgsModel(lot_id, org_id, brand_barcode, in_amount, out_amount, totalamount)
         db.session.add(my_data)
         db.session.commit()
 
@@ -367,7 +369,8 @@ def flowBrand():
     db.session.add(flowMd)
     db.session.commit()
 
-    my_data = db.session.query(BrandsOrgsModel).get({'lot_id': SourceLotID, 'org_id': SourceOrgID, 'brand_barcode':BrandBarcode})
+    my_data = db.session.query(BrandsOrgsModel).get(
+        {'lot_id': SourceLotID, 'org_id': SourceOrgID, 'brand_barcode': BrandBarcode})
     my_data.lot_id = TargetLotID
     my_data.org_id = TargetOrgID
     db.session.commit()
